@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bella Napoli da Luigi — Pizzeria napolitaine à Bulle</title>
+  <meta name="description" content="Pizzeria napolitaine à Bulle. Pâte fermentée jusqu'à 48 heures, farine moulue à la meule de pierre, produits d'origine italienne.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F4ECDF">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%232B1E17'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='30' fill='%23E39A73'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Intro -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader_inner">
+      <div class="loader_title">
+        <span class="mask"><span class="mask_inner">Bella</span></span>
+        <span class="mask"><span class="mask_inner is-accent">Napoli</span></span>
+      </div>
+      <div class="loader_bar"><span class="loader_bar-fill"></span></div>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"><span class="cursor_label">Voir</span></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page-wrapper">
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="navbar_component">
+      <div class="padding-global">
+        <nav class="navbar_container" aria-label="Navigation principale">
+          <a href="#top" class="navbar_logo" aria-label="Bella Napoli da Luigi, accueil">
+            <span class="navbar_logo-name">Bella Napoli</span>
+            <span class="navbar_logo-tag">da Luigi</span>
+          </a>
+          <div class="navbar_menu">
+            <a href="#carte" class="navbar_link">La carte</a>
+            <a href="#signatures" class="navbar_link">Signatures</a>
+            <a href="#experience" class="navbar_link">L'expérience</a>
+            <a href="#contact" class="navbar_link">Contact</a>
+          </div>
+          <div class="navbar_actions">
+            <a href="#reservation" class="button is-small magnetic"><span>Réserver</span></a>
+            <button class="navbar_burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-mobile">
+              <span></span><span></span>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Menu mobile -->
+    <div class="menu-overlay" id="menu-mobile" aria-hidden="true">
+      <div class="padding-global">
+        <div class="menu-overlay_links">
+          <a href="#carte" class="menu-overlay_link"><span class="menu-overlay_index">01</span>La carte</a>
+          <a href="#signatures" class="menu-overlay_link"><span class="menu-overlay_index">02</span>Signatures</a>
+          <a href="#experience" class="menu-overlay_link"><span class="menu-overlay_index">03</span>L'expérience</a>
+          <a href="#reservation" class="menu-overlay_link"><span class="menu-overlay_index">04</span>Réserver</a>
+          <a href="#contact" class="menu-overlay_link"><span class="menu-overlay_index">05</span>Contact</a>
+        </div>
+        <div class="menu-overlay_footer">
+          <a href="tel:+41269131419">026 913 14 19</a>
+          <span>Rue Saint-Denis 42, Bulle</span>
+        </div>
+      </div>
+    </div>
+
+    <main class="main-wrapper" id="top">
+
+      <!-- ========== HERO ========== -->
+      <section class="section_hero">
+        <div class="padding-global">
+          <div class="container-large">
+            <div class="hero_top intro-fade" style="--d: .1s">
+              <span>Pizzeria napolitaine · Bulle</span>
+              <span class="hide-mobile">Vera pizza napoletana</span>
+            </div>
+
+            <h1 class="hero_title" aria-label="Bella Napoli">
+              <span class="hero_title-line">
+                <span class="mask"><span class="mask_inner" style="--d: 0s">B</span></span><span class="mask"><span class="mask_inner" style="--d: .05s">e</span></span><span class="mask"><span class="mask_inner" style="--d: .1s">l</span></span><span class="mask"><span class="mask_inner" style="--d: .15s">l</span></span><span class="mask"><span class="mask_inner" style="--d: .2s">a</span></span>
+              </span>
+              <span class="hero_title-line is-right is-accent">
+                <span class="mask"><span class="mask_inner" style="--d: .2s">N</span></span><span class="mask"><span class="mask_inner" style="--d: .25s">a</span></span><span class="mask"><span class="mask_inner" style="--d: .3s">p</span></span><span class="mask"><span class="mask_inner" style="--d: .35s">o</span></span><span class="mask"><span class="mask_inner" style="--d: .4s">l</span></span><span class="mask"><span class="mask_inner" style="--d: .45s">i</span></span>
+              </span>
+            </h1>
+
+            <div class="hero_bottom">
+              <div class="hero_content intro-fade" style="--d: .6s">
+                <p class="text-size-large">L'art de la pizza napolitaine, transmis de père en fils. Pâte fermentée jusqu'à 48&nbsp;heures, farine moulue à la meule de pierre et produits venus d'Italie.</p>
+                <div class="button-group">
+                  <a href="#reservation" class="button magnetic"><span>Réserver une table</span><span class="button_arrow">→</span></a>
+                  <a href="#carte" class="button is-secondary magnetic"><span>Voir la carte</span></a>
+                </div>
+                <div class="hero_meta">
+                  <span class="status"><span class="status_dot"></span><span class="status_label">Horaires</span></span>
+                  <span>Mar – Sam · 11h30–14h00 · 18h30–22h00</span>
+                </div>
+              </div>
+
+              <div class="hero_media">
+                <div class="hero_arch" data-cursor="Luigi">
+                  <img src="https://static.wixstatic.com/media/55cd43_bd2a49f9baaa47afabe80378bbc51524~mv2.png" onerror="this.onerror=null;this.src='assets/img/luigi.jpg'" alt="Luigi Sacco, pizzaiolo, tenant une pizza napolitaine" class="hero_arch-img">
+                </div>
+                <div class="badge intro-fade" style="--d: .9s">
+                  <svg class="badge_ring" viewBox="0 0 150 150" aria-hidden="true">
+                    <defs><path id="badge-path" d="M75,75 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs>
+                    <text><textPath href="#badge-path">Fermentation naturelle · 48 heures ·</textPath></text>
+                  </svg>
+                  <span class="badge_value">48h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ingrédients flottants -->
+        <svg class="float is-1 hide-mobile" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 5.5 4 11 6 20c7-1.5 12-7 12-13 0-2.5-2-4-6-5z" fill="#55603F"/><path d="M6.5 19.5C9 14 11.5 9 13 4" stroke="#F4ECDF" stroke-width=".7" fill="none"/></svg>
+        <svg class="float is-2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 5.5 4 11 6 20c7-1.5 12-7 12-13 0-2.5-2-4-6-5z" fill="#55603F"/><path d="M6.5 19.5C9 14 11.5 9 13 4" stroke="#F4ECDF" stroke-width=".7" fill="none"/></svg>
+        <svg class="float is-3 hide-mobile" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#B8402A"/><circle cx="8.5" cy="8.5" r="2.4" fill="#FFF8F0" opacity=".35"/><path d="M12 2.5c1.5 1.2 3 1.4 4.5.8" stroke="#55603F" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+        <svg class="float is-4 hide-mobile" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#B8402A"/><circle cx="8.5" cy="8.5" r="2.4" fill="#FFF8F0" opacity=".35"/></svg>
+      </section>
+
+      <!-- ========== RUBANS ========== -->
+      <div class="ribbons" aria-hidden="true">
+        <div class="ribbon is-dark">
+          <div class="marquee">
+            <div class="marquee_track">
+              <span>Pâte fermentée 48h</span><i>✦</i><span>Farine moulue à la meule de pierre</span><i>✦</i><span>Produits d'origine italienne</span><i>✦</i><span>Tradition napolitaine</span><i>✦</i>
+              <span>Pâte fermentée 48h</span><i>✦</i><span>Farine moulue à la meule de pierre</span><i>✦</i><span>Produits d'origine italienne</span><i>✦</i><span>Tradition napolitaine</span><i>✦</i>
+            </div>
+          </div>
+        </div>
+        <div class="ribbon is-terracotta">
+          <div class="marquee is-reverse">
+            <div class="marquee_track">
+              <span>Sur place</span><i>●</i><span>À emporter</span><i>●</i><span>En livraison</span><i>●</i><span>Rue Saint-Denis 42, Bulle</span><i>●</i><span>Sur place</span><i>●</i><span>À emporter</span><i>●</i><span>En livraison</span><i>●</i><span>Rue Saint-Denis 42, Bulle</span><i>●</i>
+              <span>Sur place</span><i>●</i><span>À emporter</span><i>●</i><span>En livraison</span><i>●</i><span>Rue Saint-Denis 42, Bulle</span><i>●</i><span>Sur place</span><i>●</i><span>À emporter</span><i>●</i><span>En livraison</span><i>●</i><span>Rue Saint-Denis 42, Bulle</span><i>●</i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== HISTOIRE ========== -->
+      <section class="section_story" id="histoire">
+        <div class="padding-global padding-section-large">
+          <div class="container-large">
+            <div class="eyebrow reveal"><span>01 — L'histoire</span><span class="eyebrow_line"></span></div>
+            <p class="story_statement" data-fill>Un vrai Napolitain, élevé dans une famille de <em>pizzaioli.</em> Formé par son père, instructeur pizzaiolo étoilé, Luigi a ouvert sa pizzeria pour partager un <em>héritage.</em></p>
+            <div class="story_bottom">
+              <p class="story_text reveal">Luigi Sacco a fait ses premiers pas vers l'art de la pizza dès son plus jeune âge. Auprès de son père, <strong>Massimo Sacco</strong>, il a appris différentes méthodes de préparation et perfectionné son geste pendant de nombreuses années, avant d'ouvrir sa propre pizzeria à Bulle.</p>
+              <div class="story_signature reveal" style="--d: .15s">
+                <svg class="signature" viewBox="0 0 380 96" role="img" aria-label="Signature de Luigi Sacco"><text x="2" y="70">Luigi Sacco</text></svg>
+                <span class="story_role">Fondateur<br>&amp; pizzaiolo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SAVOIR-FAIRE ========== -->
+      <section class="section_craft">
+        <div class="padding-global padding-section-bottom">
+          <div class="container-large">
+            <div class="craft_visual clip-reveal" data-cursor="Margherita">
+              <div class="craft_visual-inner parallax" data-speed="0.12">
+                <img src="https://static.wixstatic.com/media/55cd43_d1afdf7f7e7c4ca3a9f86848cc5ccb8b~mv2.jpg" onerror="this.onerror=null;this.src='assets/img/margherita.jpg'" alt="Pizza napolitaine sortie du four" loading="lazy">
+              </div>
+              <div class="craft_counter reveal" style="--d: .5s">
+                <span class="craft_counter-value" data-count="48">0</span>
+                <span class="craft_counter-label">heures de<br>fermentation</span>
+              </div>
+            </div>
+
+            <div class="pillars">
+              <article class="pillar reveal">
+                <div class="pillar_top">
+                  <span class="pillar_index">01</span>
+                  <svg class="pillar_icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V8"/><path d="M12 8c0-3 2-5 4-5 0 3-2 5-4 5z"/><path d="M12 8c0-3-2-5-4-5 0 3 2 5 4 5z"/><path d="M12 14c0-3 2-5 4-5 0 3-2 5-4 5z"/><path d="M12 14c0-3-2-5-4-5 0 3 2 5 4 5z"/></svg>
+                </div>
+                <h3 class="pillar_title">Qualité</h3>
+                <p class="pillar_text">Des produits authentiques d'origine italienne, choisis avec soin pour retrouver les saveurs et les arômes de Naples.</p>
+              </article>
+              <article class="pillar reveal" style="--d: .12s">
+                <div class="pillar_top">
+                  <span class="pillar_index">02</span>
+                  <svg class="pillar_icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </div>
+                <h3 class="pillar_title">Tradition</h3>
+                <p class="pillar_text">Farine moulue à la meule de pierre, fermentation naturelle de 24 à 48&nbsp;heures&nbsp;: une pâte légère et facile à digérer.</p>
+              </article>
+              <article class="pillar reveal" style="--d: .24s">
+                <div class="pillar_top">
+                  <span class="pillar_index">03</span>
+                  <svg class="pillar_icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h18"/><path d="M5 17a7 7 0 0 1 14 0"/><path d="M12 10V8"/><path d="M10 8h4"/></svg>
+                </div>
+                <h3 class="pillar_title">Service</h3>
+                <p class="pillar_text">Un accueil courtois et attentionné, pour que chaque repas soit un moment agréable et savoureux.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SIGNATURES (scroll horizontal) ========== -->
+      <section class="section_signatures" id="signatures">
+        <div class="signatures_sticky">
+          <div class="padding-global">
+            <div class="container-large">
+              <div class="signatures_header">
+                <div>
+                  <div class="eyebrow is-light reveal"><span>02 — Les signatures</span></div>
+                  <h2 class="heading-style-h2 split-reveal"><span class="mask"><span class="mask_inner">Les pizzas</span></span> <span class="mask"><span class="mask_inner is-accent" style="--d: .1s">gourmets.</span></span></h2>
+                </div>
+                <p class="signatures_intro reveal">La carte évolue au fil des saisons. Voici les créations de Luigi du moment.</p>
+              </div>
+            </div>
+          </div>
+          <div class="signatures_track-wrap">
+            <div class="signatures_track">
+              <article class="sig-card is-photo" data-cursor="Bella Napoli">
+                <img src="https://static.wixstatic.com/media/55cd43_e58b8b51585a49029c86260aceb078b0~mv2.png" onerror="this.onerror=null;this.src='assets/img/pizza-crust.jpg'" alt="Pizza Bella Napoli" loading="lazy">
+                <div class="sig-card_overlay">
+                  <span class="sig-card_tag">La signature</span>
+                  <h3 class="sig-card_name">Bella Napoli</h3>
+                  <p class="sig-card_desc">Saucisses de porc, friarielli, crème de burrata. Sans sauce tomate.</p>
+                  <span class="sig-card_price">27 CHF</span>
+                </div>
+              </article>
+              <article class="sig-card">
+                <span class="sig-card_index">01</span>
+                <h3 class="sig-card_name">La mano di Dio</h3>
+                <p class="sig-card_desc">Sauce tomate, fior di latte, saucisses de porc, aubergines, bufala.</p>
+                <span class="sig-card_price">28 CHF</span>
+              </article>
+              <article class="sig-card is-terracotta">
+                <span class="sig-card_index">02</span>
+                <h3 class="sig-card_name">Antonella</h3>
+                <p class="sig-card_desc">Crème de pistache, fior di latte, mortadella, burrata, pistache concassée.</p>
+                <span class="sig-card_price">28.50 CHF</span>
+              </article>
+              <article class="sig-card is-photo" data-cursor="Maradona">
+                <img src="https://static.wixstatic.com/media/55cd43_5238ac2b8f1849d8a86d6e726f9ed2cf~mv2.jpg" onerror="this.onerror=null;this.src='assets/img/pizza-pesto.jpg'" alt="Pizza au pesto et burrata" loading="lazy">
+                <div class="sig-card_overlay">
+                  <span class="sig-card_tag">Coup de cœur</span>
+                  <h3 class="sig-card_name">Maradona</h3>
+                  <p class="sig-card_desc">Sauce tomate, fior di latte, pesto, crème de burrata, tomates cerise.</p>
+                  <span class="sig-card_price">28 CHF</span>
+                </div>
+              </article>
+              <article class="sig-card">
+                <span class="sig-card_index">03</span>
+                <h3 class="sig-card_name">King</h3>
+                <p class="sig-card_desc">Crème à la truffe, fior di latte, saucisses de porc, burrata, tomates cerise.</p>
+                <span class="sig-card_price">28.50 CHF</span>
+              </article>
+              <article class="sig-card is-cream">
+                <span class="sig-card_index">04</span>
+                <h3 class="sig-card_name">Bulle</h3>
+                <p class="sig-card_desc">Fior di latte, Vacherin, Gruyère râpé, lard fumé. L'hommage à la Gruyère.</p>
+                <span class="sig-card_price">26 CHF</span>
+              </article>
+              <article class="sig-card">
+                <span class="sig-card_index">05</span>
+                <h3 class="sig-card_name">Joyce</h3>
+                <p class="sig-card_desc">Carpaccio de bœuf, burrata, pesto, grana padano.</p>
+                <span class="sig-card_price">29 CHF</span>
+              </article>
+              <a href="#carte" class="sig-card is-link">
+                <span class="sig-card_name">Toute<br>la carte</span>
+                <span class="sig-card_arrow">→</span>
+              </a>
+            </div>
+          </div>
+          <div class="padding-global">
+            <div class="container-large">
+              <div class="signatures_progress"><span class="signatures_progress-bar"></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== LA CARTE ========== -->
+      <section class="section_menu" id="carte">
+        <div class="padding-global padding-section-large">
+          <div class="container-large">
+            <div class="menu_header">
+              <div>
+                <div class="eyebrow reveal"><span>03 — La carte</span><span class="eyebrow_line"></span></div>
+                <h2 class="heading-style-h2 split-reveal"><span class="mask"><span class="mask_inner">Faite maison,</span></span><br><span class="mask"><span class="mask_inner is-accent" style="--d: .1s">à la napolitaine.</span></span></h2>
+              </div>
+              <p class="menu_note reveal">Toutes nos pizzas existent en pâte sans gluten (+3 CHF). Une contamination croisée ne peut être totalement exclue.</p>
+            </div>
+
+            <div class="menu_tabs reveal" role="tablist" aria-label="Catégories de la carte"></div>
+
+            <div class="menu_panel">
+              <p class="menu_panel-intro"></p>
+              <div class="menu_list"></div>
+              <div class="menu_more" hidden>
+                <button type="button" class="button is-secondary magnetic"><span class="menu_more-label">Voir la suite</span><span class="button_arrow">↓</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== EXPÉRIENCE ========== -->
+      <section class="section_experience" id="experience">
+        <div class="padding-global padding-section-large">
+          <div class="container-large">
+            <div class="experience_header">
+              <div>
+                <div class="eyebrow reveal"><span>04 — L'expérience</span><span class="eyebrow_line"></span></div>
+                <h2 class="heading-style-h2 split-reveal"><span class="mask"><span class="mask_inner">Partager un héritage,</span></span><br><span class="mask"><span class="mask_inner is-accent" style="--d: .1s">une pizza à la fois.</span></span></h2>
+              </div>
+            </div>
+
+            <div class="experience_grid">
+              <article class="exp-card reveal">
+                <div class="exp-card_media parallax" data-speed="0.05">
+                  <img src="https://static.wixstatic.com/media/55cd43_d1afdf7f7e7c4ca3a9f86848cc5ccb8b~mv2.jpg" onerror="this.onerror=null;this.src='assets/img/margherita.jpg'" alt="Pizza napolitaine servie en salle" loading="lazy">
+                </div>
+                <span class="exp-card_index">i.</span>
+                <h3 class="exp-card_title">À table</h3>
+                <p class="exp-card_text">Une salle chaleureuse au cœur de Bulle, le service à l'italienne et la pizza servie à la sortie du four.</p>
+              </article>
+              <article class="exp-card is-offset reveal" style="--d: .12s">
+                <div class="exp-card_media parallax" data-speed="-0.06">
+                  <img src="https://static.wixstatic.com/media/55cd43_5238ac2b8f1849d8a86d6e726f9ed2cf~mv2.jpg" onerror="this.onerror=null;this.src='assets/img/pizza-pesto.jpg'" alt="Pizza gourmet à emporter" loading="lazy">
+                </div>
+                <span class="exp-card_index">ii.</span>
+                <h3 class="exp-card_title">À emporter</h3>
+                <p class="exp-card_text">Commandez en ligne, choisissez votre heure de retrait et passez récupérer votre pizza encore fumante.</p>
+              </article>
+              <article class="exp-card reveal" style="--d: .24s">
+                <div class="exp-card_media is-gift">
+                  <div class="gift-card">
+                    <span class="gift-card_brand">Bella Napoli</span>
+                    <span class="gift-card_value">100 CHF</span>
+                    <span class="gift-card_label">Carte cadeau</span>
+                  </div>
+                </div>
+                <span class="exp-card_index">iii.</span>
+                <h3 class="exp-card_title">À offrir</h3>
+                <p class="exp-card_text">Une carte cadeau à envoyer en un clic, pour un anniversaire, une fête ou simplement faire plaisir.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== RÉSERVATION ========== -->
+      <section class="section_booking" id="reservation">
+        <div class="padding-global padding-section-large">
+          <div class="container-large">
+            <div class="booking_component reveal">
+              <svg class="booking_ring" viewBox="0 0 150 150" aria-hidden="true">
+                <defs><path id="booking-path" d="M75,75 m-60,0 a60,60 0 1,1 120,0 a60,60 0 1,1 -120,0"/></defs>
+                <text><textPath href="#booking-path">Prenota · Prenota · Prenota · Prenota ·</textPath></text>
+              </svg>
+              <div class="booking_content">
+                <div class="eyebrow is-cream"><span>05 — Réservation</span></div>
+                <h2 class="heading-style-h2">Votre table<br><em>vous attend.</em></h2>
+                <p class="booking_text">Ou par téléphone au <a href="tel:+41269131419">026 913 14 19</a></p>
+              </div>
+              <form class="booking_form" onsubmit="return false">
+                <div class="booking_field">
+                  <label for="guests">Couverts</label>
+                  <select id="guests" name="guests">
+                    <option>1 personne</option><option selected>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>5 personnes</option><option>6 personnes et +</option>
+                  </select>
+                </div>
+                <div class="booking_field">
+                  <label for="date">Date</label>
+                  <input id="date" name="date" type="date">
+                </div>
+                <div class="booking_field">
+                  <label for="time">Heure</label>
+                  <select id="time" name="time">
+                    <option>11h30</option><option>12h00</option><option>12h30</option><option>13h00</option><option>18h30</option><option selected>19h00</option><option>19h30</option><option>20h00</option><option>20h30</option><option>21h00</option>
+                  </select>
+                </div>
+                <button type="submit" class="button is-dark is-full magnetic"><span class="booking_submit-label">Réserver une table</span><span class="button_arrow">→</span></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== LIVRAISON ========== -->
+      <a class="delivery_strip reveal" href="https://www.ubereats.com/ch-it/store/pizzeria-bella-napoli-da-luigi/Pu4Z1VzCX9SoPrIJqxdXMQ" target="_blank" rel="noopener">
+        <div class="padding-global">
+          <div class="container-large delivery_inner">
+            <div>
+              <p class="delivery_title">Envie de Naples <em>à la maison&nbsp;?</em></p>
+              <p class="delivery_text">Livraison via Uber Eats</p>
+            </div>
+            <span class="delivery_arrow">→</span>
+          </div>
+        </div>
+      </a>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer_component" id="contact">
+      <div class="padding-global">
+        <div class="container-large">
+          <div class="footer_top">
+            <h2 class="footer_title split-reveal"><span class="mask"><span class="mask_inner">A</span></span> <span class="mask"><span class="mask_inner is-accent" style="--d: .1s">presto.</span></span></h2>
+            <div class="reveal"><a href="#reservation" class="button magnetic"><span>Réserver une table</span><span class="button_arrow">→</span></a></div>
+          </div>
+          <div class="footer_grid">
+            <div class="footer_col reveal">
+              <span class="footer_label">Adresse</span>
+              <p>Rue Saint-Denis 42<br>1630 Bulle</p>
+              <a href="https://maps.google.com/?q=Bella+Napoli+Da+Luigi+Bulle" target="_blank" rel="noopener" class="footer_link">Itinéraire →</a>
+            </div>
+            <div class="footer_col reveal" style="--d: .08s">
+              <span class="footer_label">Horaires</span>
+              <p>Mardi – Samedi<br>11h30 – 14h00<br>18h30 – 22h00</p>
+              <p class="footer_muted">Dimanche &amp; lundi&nbsp;: fermé</p>
+            </div>
+            <div class="footer_col reveal" style="--d: .16s">
+              <span class="footer_label">Contact</span>
+              <a href="tel:+41269131419" class="footer_link">026 913 14 19</a>
+              <a href="mailto:bella.napoli.bulle@gmail.com" class="footer_link">bella.napoli.bulle@gmail.com</a>
+            </div>
+            <div class="footer_col reveal" style="--d: .24s">
+              <span class="footer_label">Suivez-nous</span>
+              <a href="https://www.instagram.com/bella_napoli_bulle/" target="_blank" rel="noopener" class="footer_link">Instagram</a>
+              <a href="https://www.tiktok.com/@bella_napoli_bulle" target="_blank" rel="noopener" class="footer_link">TikTok</a>
+              <a href="#contact" class="footer_link">Facebook</a>
+            </div>
+          </div>
+          <div class="footer_map reveal">
+            <iframe title="Plan d'accès Bella Napoli da Luigi" src="https://maps.google.com/maps?q=Rue%20Saint-Denis%2042%2C%201630%20Bulle&t=&z=16&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="footer_marquee" aria-hidden="true">
+        <div class="marquee is-slow">
+          <div class="marquee_track">
+            <span>Bella Napoli</span><span class="is-outline">da Luigi</span><i>✦</i><span>Bella Napoli</span><span class="is-outline">da Luigi</span><i>✦</i>
+            <span>Bella Napoli</span><span class="is-outline">da Luigi</span><i>✦</i><span>Bella Napoli</span><span class="is-outline">da Luigi</span><i>✦</i>
+          </div>
+        </div>
+      </div>
+      <div class="padding-global">
+        <div class="container-large footer_bottom">
+          <span>© 2026 Bella Napoli da Luigi · Pizzeria napolitaine à Bulle</span>
+          <a href="#contact">Politique de confidentialité</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bouton flottant mobile -->
+    <a href="#reservation" class="floating-cta" aria-label="Réserver une table">Réserver</a>
+
+  </div>
+
+  <script src="assets/js/menu-data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

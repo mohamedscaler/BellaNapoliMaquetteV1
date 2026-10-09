@@ -647,3 +647,10 @@ body.is-loaded .hero_arch-img { transform: scale(1); }
   .story_statement .word { opacity: 1; }
   .signature text { fill: currentColor; stroke-dashoffset: 0; }
 }
+
+/* ---------- Sélecteur de version (maquette) ---------- */
+.version-switch { position: fixed; left: 16px; bottom: 16px; z-index: 130; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(43, 30, 23, .9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .4); }
+.version-switch a { padding: 8px 14px; border-radius: 999px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: .12em; color: rgba(255, 255, 255, .7); text-decoration: none; transition: background-color .3s, color .3s; }
+.version-switch a:hover { color: #fff; }
+.version-switch a[aria-current="page"] { background: var(--terracotta); color: var(--cream-soft); }
+@media (max-width: 767px) { .version-switch { bottom: 84px; } }

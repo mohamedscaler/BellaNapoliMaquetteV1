@@ -30,7 +30,7 @@
   --radius: 24px;
 
   /* Carreau de majolique (motif répété) */
-  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Crect width='56' height='56' fill='%23F7F2E8'/%3E%3Cpath d='M28 6c5 10 10 15 22 22-12 7-17 12-22 22-5-10-10-15-22-22 12-7 17-12 22-22z' fill='%231E4E8C'/%3E%3Cpath d='M28 17c2.6 5 5.4 8 11 11-5.6 3-8.4 6-11 11-2.6-5-5.4-8-11-11 5.6-3 8.4-6 11-11z' fill='%23F7F2E8'/%3E%3Ccircle cx='28' cy='28' r='3.5' fill='%23E9C46A'/%3E%3Cpath d='M0 0h10L0 10zM56 0H46l10 10zM0 56h10L0 46zM56 56H46l10-10z' fill='%231E4E8C'/%3E%3Ccircle cx='0' cy='28' r='3' fill='%23A9CBE6'/%3E%3Ccircle cx='56' cy='28' r='3' fill='%23A9CBE6'/%3E%3Ccircle cx='28' cy='0' r='3' fill='%23A9CBE6'/%3E%3Ccircle cx='28' cy='56' r='3' fill='%23A9CBE6'/%3E%3C/svg%3E");
+  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F7F2E8'/%3E%3Cg fill='%232F6B45'%3E%3Cellipse cx='32' cy='2' rx='4' ry='8'/%3E%3Cellipse cx='32' cy='62' rx='4' ry='8'/%3E%3Cellipse cx='2' cy='32' rx='8' ry='4'/%3E%3Cellipse cx='62' cy='32' rx='8' ry='4'/%3E%3C/g%3E%3Cg fill='%23E3A92B'%3E%3Ccircle cx='0' cy='0' r='13'/%3E%3Ccircle cx='64' cy='0' r='13'/%3E%3Ccircle cx='0' cy='64' r='13'/%3E%3Ccircle cx='64' cy='64' r='13'/%3E%3C/g%3E%3Cg fill='%231E4E8C'%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='64' cy='0' r='6'/%3E%3Ccircle cx='0' cy='64' r='6'/%3E%3Ccircle cx='64' cy='64' r='6'/%3E%3Crect x='19' y='19' width='26' height='26'/%3E%3Crect x='19' y='19' width='26' height='26' transform='rotate(45 32 32)'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='10' fill='%23F7F2E8'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23E3A92B'/%3E%3Ccircle cx='32' cy='32' r='3' fill='%23C2452D'/%3E%3Cg fill='%23A9CBE6'%3E%3Ccircle cx='16' cy='16' r='2.4'/%3E%3Ccircle cx='48' cy='16' r='2.4'/%3E%3Ccircle cx='16' cy='48' r='2.4'/%3E%3Ccircle cx='48' cy='48' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* ---------- Base ---------- */
@@ -190,9 +190,9 @@ body.is-loaded .plate { transform: none; opacity: 1; }
 @keyframes pulse { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
 
 /* ---------- Bande de carreaux ---------- */
-.tile-band { height: 56px; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.tile-band_track { height: 100%; width: calc(100% + 56px); background: var(--tile); background-size: 56px; animation: tiles 6s linear infinite; }
-@keyframes tiles { to { transform: translateX(-56px); } }
+.tile-band { height: 64px; overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.tile-band_track { height: 100%; width: calc(100% + 64px); background: var(--tile); background-size: 64px; animation: tiles 6s linear infinite; }
+@keyframes tiles { to { transform: translateX(-64px); } }
 
 /* ---------- Intro ---------- */
 .section_intro { text-align: center; }
@@ -481,3 +481,42 @@ body.is-loaded .plate { transform: none; opacity: 1; }
 .menu_item-name { font-size: 19px; font-weight: 500; }
 .menu_item:hover .menu_item-name, .sig-row:hover .sig-row_name { font-style: normal; }
 .navbar_logo-name, .loader_letter, .giftcard_brand { font-weight: 500; }
+
+/* ---------- Photos du client ---------- */
+.story_window { background: var(--sand); }
+.story_img { top: -6%; bottom: auto; height: 112%; object-position: center 20%; mix-blend-mode: normal; }
+
+.gesture::before { display: none; }
+.gesture_media { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: .35; filter: grayscale(.7); transform: scale(1.08); transition: opacity .8s, filter .8s, transform 1.4s var(--ease-out); }
+.gesture::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(15, 42, 71, .25) 0%, rgba(15, 42, 71, .55) 45%, rgba(15, 42, 71, .95) 100%); }
+.gesture.is-active { background: var(--navy); }
+.gesture.is-active .gesture_media { opacity: 1; filter: none; transform: none; }
+
+.sig-row_thumb { display: none; }
+
+.section_gallery { padding: clamp(96px, 12vw, 176px) 0; overflow: hidden; background: var(--cream); }
+.gallery_header { margin-bottom: clamp(40px, 5vw, 64px); }
+.gallery_rows { display: flex; flex-direction: column; gap: 16px; }
+.gallery_row { overflow: hidden; }
+.gallery_track { display: flex; gap: 16px; width: max-content; animation: gallery 60s linear infinite; }
+.gallery_row.is-reverse .gallery_track { animation-direction: reverse; animation-duration: 70s; }
+.gallery_rows:hover .gallery_track { animation-play-state: paused; }
+.gallery_item { margin: 0; width: clamp(220px, 22vw, 320px); aspect-ratio: 1; border-radius: 22px; overflow: hidden; background: var(--sand); }
+.gallery_item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out); }
+.gallery_item:hover img { transform: scale(1.07); }
+.gallery_footer { display: flex; justify-content: center; margin-top: clamp(40px, 5vw, 56px); }
+@keyframes gallery { to { transform: translateX(-50%); } }
+
+.menu_nav-note p + p { margin-top: 10px; }
+.menu_nav-note strong { color: var(--navy); }
+
+@media (max-width: 767px) {
+  .sig-row { grid-template-columns: 64px minmax(0, 1fr) auto; }
+  .sig-row_index { display: none; }
+  .sig-row_thumb { display: block; grid-row: 1 / span 2; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; align-self: center; }
+  .sig-row_name { grid-column: 2; }
+  .sig-row_desc { grid-column: 2 / -1; }
+  .gallery_item { width: 62vw; }
+}
+@media (prefers-reduced-motion: reduce) { .gallery_track { animation: none; } }
+.gesture:first-child .gesture_media { object-position: center 75%; }

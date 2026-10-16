@@ -166,7 +166,7 @@
     var mx = -999, my = -999, hx = -999, hy = -999, lastX = 0;
     $$('.sig-row').forEach(function (row) {
       row.addEventListener('mouseenter', function (e) {
-        hoverImg.onerror = function () { hoverImg.onerror = null; hoverImg.src = row.dataset.fallback; };
+        hoverImg.onerror = row.dataset.fallback ? function () { hoverImg.onerror = null; hoverImg.src = row.dataset.fallback; } : null;
         if (hoverImg.getAttribute('src') !== row.dataset.img) hoverImg.src = row.dataset.img;
         if (hx < -900) { hx = e.clientX; hy = e.clientY; }
         hover.classList.add('is-visible');

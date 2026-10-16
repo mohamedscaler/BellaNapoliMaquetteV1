@@ -695,3 +695,12 @@ body.is-loaded .plate { transform: none; opacity: 1; }
   .reviews_stars svg { width: 22px; height: 22px; }
   .reviews_actions .button { flex: 1 1 auto; }
 }
+
+/* ---------- Onglet « Déposer un avis » ---------- */
+.navbar_link.is-review { display: inline-flex; align-items: center; gap: 6px; }
+.navbar_link.is-review::before { content: "★"; font-size: 13px; color: var(--lemon-dark); }
+.navbar_link.is-review::after { display: none; }
+.navbar_link.is-review:hover { color: var(--cobalt); }
+.is-menu-open .menu-overlay_link:nth-child(7) { transition-delay: .65s; }
+.navbar_link { white-space: nowrap; }
+@media (max-width: 1200px) and (min-width: 992px) { .navbar_side { gap: 22px; font-size: 13px; } .navbar_link.is-optional { display: none; } }

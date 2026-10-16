@@ -44,8 +44,9 @@
             <span class="navbar_logo-tag">— da Luigi —</span>
           </a>
           <div class="navbar_side is-right">
-            <a href="#offrir" class="navbar_link">Offrir</a>
-            <a href="#contact" class="navbar_link">Contact</a>
+            <a href="#avis" class="navbar_link">Avis</a>
+            <a href="https://search.google.com/local/writereview?placeid=ChIJp9tI5KVjjkcR0wZeZhKJvsU" target="_blank" rel="noopener" class="navbar_link is-review">Déposer un avis</a>
+            <a href="#contact" class="navbar_link is-optional">Contact</a>
             <a href="#reservation" class="button is-small"><span>Réserver</span></a>
           </div>
           <button class="navbar_burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-mobile">
@@ -61,7 +62,8 @@
         <a href="#histoire" class="menu-overlay_link">L'histoire</a>
         <a href="#signatures" class="menu-overlay_link">Signatures</a>
         <a href="#carte" class="menu-overlay_link">La carte</a>
-        <a href="#offrir" class="menu-overlay_link">Offrir</a>
+        <a href="#avis" class="menu-overlay_link">Avis</a>
+        <a href="https://search.google.com/local/writereview?placeid=ChIJp9tI5KVjjkcR0wZeZhKJvsU" target="_blank" rel="noopener" class="menu-overlay_link">Déposer un avis</a>
         <a href="#reservation" class="menu-overlay_link">Réserver</a>
         <a href="#contact" class="menu-overlay_link">Contact</a>
         <div class="menu-overlay_footer">
@@ -291,6 +293,37 @@
         </div>
       </section>
 
+      <!-- ========== LA CARTE ========== -->
+      <section class="section_menu" id="carte">
+        <div class="padding-global padding-section-large">
+          <div class="container-large">
+            <div class="section-header is-center">
+              <p class="eyebrow reveal">Il menù</p>
+              <h2 class="heading-style-h2 reveal">La <em>carte</em></h2>
+            </div>
+            <div class="menu_layout">
+              <aside class="menu_nav" aria-label="Catégories de la carte">
+                <div class="menu_nav-list" role="tablist"></div>
+                <div class="menu_nav-note">
+                  <p><strong>Sans gluten</strong> · toutes nos pizzas existent avec une pâte sans gluten (+3&nbsp;CHF), cuite dans un moule séparé mais dans le même four : une contamination croisée ne peut être exclue. La pâte sans gluten n'est pas faite maison.</p>
+                  <p><strong>Format mini</strong> · toutes nos pizzas existent en format mini (−2&nbsp;CHF).</p>
+                  <p>Prix identiques sur place et à l'emporter.</p>
+                </div>
+              </aside>
+              <div class="menu_card">
+                <div class="menu_card-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+                <div class="menu_panel">
+                  <h3 class="menu_panel-title"></h3>
+                  <p class="menu_panel-intro"></p>
+                  <div class="menu_list"></div>
+                  <button type="button" class="menu_more" hidden><span class="menu_more-label">Voir la suite</span> <span aria-hidden="true">↓</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <!-- ========== AVIS GOOGLE ========== -->
       <section class="section_reviews" id="avis">
@@ -336,78 +369,6 @@
                 <blockquote>J'ai adoré la pizza, tellement bonne ❤️</blockquote>
                 <figcaption><span class="review_g" aria-hidden="true">G</span> Avis Google · traduit de l'anglais</figcaption>
               </figure>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========== LA CARTE ========== -->
-      <section class="section_menu" id="carte">
-        <div class="padding-global padding-section-large">
-          <div class="container-large">
-            <div class="section-header is-center">
-              <p class="eyebrow reveal">Il menù</p>
-              <h2 class="heading-style-h2 reveal">La <em>carte</em></h2>
-            </div>
-            <div class="menu_layout">
-              <aside class="menu_nav" aria-label="Catégories de la carte">
-                <div class="menu_nav-list" role="tablist"></div>
-                <div class="menu_nav-note">
-                  <p><strong>Sans gluten</strong> · toutes nos pizzas existent avec une pâte sans gluten (+3&nbsp;CHF), cuite dans un moule séparé mais dans le même four : une contamination croisée ne peut être exclue. La pâte sans gluten n'est pas faite maison.</p>
-                  <p><strong>Format mini</strong> · toutes nos pizzas existent en format mini (−2&nbsp;CHF).</p>
-                  <p>Prix identiques sur place et à l'emporter.</p>
-                </div>
-              </aside>
-              <div class="menu_card">
-                <div class="menu_card-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-                <div class="menu_panel">
-                  <h3 class="menu_panel-title"></h3>
-                  <p class="menu_panel-intro"></p>
-                  <div class="menu_list"></div>
-                  <button type="button" class="menu_more" hidden><span class="menu_more-label">Voir la suite</span> <span aria-hidden="true">↓</span></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========== OFFRIR (carte cadeau) ========== -->
-      <section class="section_gift" id="offrir">
-        <div class="tile-band is-top" aria-hidden="true"><div class="tile-band_track"></div></div>
-        <div class="padding-global padding-section-large">
-          <div class="container-large gift_layout">
-            <div class="gift_content">
-              <p class="eyebrow is-light reveal">À offrir</p>
-              <h2 class="heading-style-h2 reveal">Offrez un dîner<br><em>à Naples.</em></h2>
-              <p class="gift_text reveal">Une carte cadeau envoyée par e-mail en quelques secondes, valable sur place et à emporter. Pour un anniversaire, une fête, ou simplement faire plaisir.</p>
-              <div class="gift_amounts reveal" role="radiogroup" aria-label="Montant de la carte cadeau">
-                <button type="button" class="gift_amount" role="radio" aria-checked="false" data-amount="50">50 CHF</button>
-                <button type="button" class="gift_amount" role="radio" aria-checked="true" data-amount="100">100 CHF</button>
-                <button type="button" class="gift_amount" role="radio" aria-checked="false" data-amount="150">150 CHF</button>
-              </div>
-              <a href="#offrir" class="button is-lemon reveal"><span>Offrir une carte cadeau</span></a>
-            </div>
-            <div class="gift_visual">
-              <button type="button" class="giftcard" aria-label="Retourner la carte cadeau">
-                <span class="giftcard_inner">
-                  <span class="giftcard_face is-front">
-                    <span class="giftcard_pattern"></span>
-                    <span class="giftcard_top">
-                      <span class="giftcard_brand">Bella Napoli</span>
-                      <span class="giftcard_tag">da Luigi</span>
-                    </span>
-                    <span class="giftcard_value"><span class="giftcard_amount">100</span> CHF</span>
-                    <span class="giftcard_label">Carta regalo</span>
-                  </span>
-                  <span class="giftcard_face is-back">
-                    <span class="giftcard_msg">« Buon appetito&nbsp;! »</span>
-                    <span class="giftcard_code">BN-2026-•••• ••••</span>
-                    <span class="giftcard_info">Valable 12 mois · Rue Saint-Denis 42, Bulle</span>
-                  </span>
-                </span>
-              </button>
-              <p class="gift_hint">Cliquez sur la carte pour la retourner</p>
             </div>
           </div>
         </div>

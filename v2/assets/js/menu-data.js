@@ -3,7 +3,7 @@ window.MENU = [
   {
     id: 'classiques',
     label: 'Pizzas classiques',
-    intro: 'Pâte à la farine moulue à la meule de pierre, fermentée naturellement 24 à 48 heures. Toutes nos pizzas sont garnies de basilic frais.',
+    intro: 'Pâte à la farine moulue à la meule de pierre et produits italiens de qualité. Toutes nos pizzas sont garnies de basilic frais.',
     items: [
       { name: 'Marinara', desc: 'Sauce tomate, ail, origan', price: '14.50' },
       { name: 'Margherita', desc: 'Sauce tomate, fior di latte', price: '16.50' },

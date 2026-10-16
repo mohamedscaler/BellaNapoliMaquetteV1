@@ -159,6 +159,24 @@
     g.addEventListener('focus', function () { activateGesture(g); });
   });
 
+
+  /* ---------- Savoir-faire : points de pagination (mobile) ---------- */
+  (function () {
+    var wrap = $('.gestures');
+    if (!wrap) return;
+    var dots = document.createElement('div');
+    dots.className = 'gestures-dots';
+    dots.setAttribute('aria-hidden', 'true');
+    gestures.forEach(function () { dots.appendChild(document.createElement('span')); });
+    wrap.parentNode.insertBefore(dots, wrap.nextSibling);
+    function update() {
+      var w = wrap.clientWidth, i = Math.round(wrap.scrollLeft / (w * 0.82 + 12));
+      $$('span', dots).forEach(function (d, k) { d.classList.toggle('is-active', k === Math.min(i, gestures.length - 1)); });
+    }
+    wrap.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
   /* ---------- Signatures : image qui suit le curseur ---------- */
   var hover = $('.hover-image');
   var hoverImg = hover && $('img', hover);
@@ -344,6 +362,7 @@
 
     progress.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
     nav.classList.toggle('is-scrolled', y > 30);
+    body.classList.toggle('is-past-top', y > 160);
     if (!body.classList.contains('is-menu-open')) nav.classList.toggle('is-hidden', y > lastY && y > 600);
     lastY = y;
 

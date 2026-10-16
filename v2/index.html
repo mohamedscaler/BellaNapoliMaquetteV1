@@ -77,6 +77,7 @@
       <section class="section_hero">
         <div class="padding-global">
           <div class="container-large hero_component">
+            <p class="hero_eyebrow">Pizzeria napolitaine · Bulle</p>
             <h1 class="hero_title" aria-label="Bella Napoli">
               <span class="hero_word is-left"><span class="split" data-delay="0">Bella</span></span>
               <span class="hero_word is-right"><span class="split" data-delay="0.15">Napoli</span></span>
@@ -101,8 +102,8 @@
             <div class="hero_footer intro">
               <p class="hero_lead">Pizzeria napolitaine au cœur de Bulle.<br>La tradition de Naples, transmise de père en fils.</p>
               <div class="hero_actions">
-                <a href="#reservation" class="button"><span>Réserver une table</span></a>
-                <a href="#carte" class="button is-ghost"><span>Découvrir la carte</span></a>
+                <a href="#reservation" class="button"><span>Réserver<span class="hide-sm-inline"> une table</span></span></a>
+                <a href="#carte" class="button is-ghost"><span><span class="hide-sm-inline">Découvrir </span>la carte</span></a>
               </div>
               <span class="status"><span class="status_dot"></span><span class="status_label">Horaires</span></span>
             </div>
@@ -220,7 +221,7 @@
                 <p class="eyebrow reveal">Les signatures</p>
                 <h2 class="heading-style-h2 reveal">Les pizzas<br><em>de Luigi.</em></h2>
               </div>
-              <p class="section-header_text reveal">Des créations qui évoluent au fil des saisons. Survolez pour les découvrir.</p>
+              <p class="section-header_text reveal">Des créations qui évoluent au fil des saisons.<span class="hide-touch"> Survolez pour les découvrir.</span></p>
             </div>
             <ul class="sig-list" role="list">
               <li class="sig-row reveal" data-img="assets/img/pizza-bella-napoli.jpg">
@@ -476,7 +477,10 @@
       </div>
     </footer>
 
-    <a href="#reservation" class="floating-cta">Réserver une table</a>
+    <div class="floating-cta" role="region" aria-label="Actions rapides">
+      <a href="tel:+41269131419" class="floating-cta_call" aria-label="Appeler la pizzeria"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>Appeler</span></a>
+      <a href="#reservation" class="floating-cta_book">Réserver une table</a>
+    </div>
 
   </div>
 

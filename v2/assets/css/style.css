@@ -755,3 +755,31 @@ body, h1, h2, h3, p, a, button, input, select, blockquote, figcaption { font-fam
   .hero_grid .hero_plate { width: 78vw; grid-row: auto; justify-self: center; }
   .hero_grid .plate_text { display: none; }
 }
+
+/* ---------- La cuisine italienne ---------- */
+.section_cucina { background: var(--cream); }
+.cucina_grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: auto auto; gap: 18px; }
+.cucina_feature { position: relative; grid-row: span 2; min-height: 520px; border-radius: var(--radius); overflow: hidden; isolation: isolate; }
+.cucina_feature img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease-out); }
+.cucina_feature:hover img { transform: scale(1.05); }
+.cucina_feature::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(15, 42, 71, 0) 45%, rgba(15, 42, 71, .88) 100%); }
+.cucina_feature-text { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(24px, 3vw, 36px); color: var(--cream); }
+.cucina_feature-text h3 { margin-top: 10px; font-size: clamp(28px, 2.6vw, 38px); font-weight: 600; }
+.cucina_feature-text p { margin-top: 6px; color: rgba(247, 242, 232, .85); }
+.cucina_card { display: flex; flex-direction: column; gap: 14px; padding: clamp(24px, 2.6vw, 34px); border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--navy); text-decoration: none; transition: transform .6s var(--ease-out), box-shadow .6s, border-color .4s; }
+.cucina_card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -40px rgba(15, 42, 71, .5); border-color: var(--cobalt); }
+.cucina_card.is-blue { grid-column: 2 / span 2; background: var(--sky-soft); }
+.cucina_card h3 { font-size: clamp(22px, 1.9vw, 28px); font-weight: 600; line-height: 1.2; }
+.cucina_card ul { display: flex; flex-direction: column; gap: 6px; font-size: 15.5px; color: var(--text-body); }
+.cucina_card li::before { content: "·"; margin-right: 8px; color: var(--cobalt); font-weight: 700; }
+.cucina_tag { align-self: flex-start; padding: 5px 12px; border-radius: 999px; background: var(--lemon); color: var(--navy); font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.cucina_link { margin-top: auto; padding-top: 6px; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--cobalt); }
+@media (max-width: 991px) {
+  .cucina_grid { grid-template-columns: 1fr 1fr; }
+  .cucina_feature { grid-column: 1 / -1; grid-row: auto; min-height: 380px; }
+  .cucina_card.is-blue { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+  .cucina_grid { grid-template-columns: 1fr; gap: 12px; }
+  .cucina_feature { min-height: 320px; }
+}

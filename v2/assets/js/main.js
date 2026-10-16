@@ -258,6 +258,13 @@
       navList.appendChild(b);
     });
     select(0, false);
+    // Les cartes « La cuisine » ouvrent directement la bonne catégorie
+    $$('[data-cat]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var i = menu.findIndex(function (c) { return c.id === link.dataset.cat; });
+        if (i > -1) select(i, false);
+      });
+    });
     moreBtn.addEventListener('click', function () {
       panel.classList.add('is-expanded');
       moreBtn.hidden = true;

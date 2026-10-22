@@ -1,66 +1,78 @@
-/* Carte du restaurant : catégories, plats et prix (CHF) */
+/* Carte Bella Napoli da Luigi — reprise du menu imprimé (prix CHF, identiques sur place et à l'emporter) */
 window.MENU = [
   {
-    id: 'pizzas',
-    label: 'Pizzas rouges',
-    intro: 'Base sauce tomate, fior di latte et basilic frais. Pâte à la farine moulue à la meule de pierre, fermentée naturellement 24 à 48 heures.',
+    id: 'classiques',
+    label: 'Pizzas classiques',
+    intro: 'Pâte à la farine moulue à la meule de pierre et produits italiens de qualité. Toutes nos pizzas sont garnies de basilic frais.',
     items: [
-      { name: 'Margherita', price: '16.50' },
-      { name: 'Venezia', desc: 'Jambon cuit', price: '18' },
-      { name: 'Mario Bross', desc: 'Champignons, olives', price: '18' },
-      { name: 'Salame', desc: 'Salame Napoli', price: '18' },
-      { name: 'Tunisienne', desc: 'Merguez', price: '18' },
-      { name: 'Sophia Loren', desc: 'Jambon cuit, champignons', price: '19.50' },
-      { name: 'Calabrese', desc: 'Salami piquant, olives', price: '19.50' },
-      { name: 'Hawaï', desc: 'Jambon cuit, ananas', price: '19.50' },
-      { name: 'Tonno', desc: 'Thon, oignons', price: '19.50' },
-      { name: 'Napoli', desc: 'Anchois, câpres, ail, origan', price: '20' },
-      { name: 'Sole mio', desc: 'Jambon cuit, œuf miroir', price: '20' },
-      { name: 'Orientale', desc: 'Merguez, poivrons, olives', price: '20' },
-      { name: 'Massimo', desc: 'Jambon cru, mascarpone', price: '22', tag: 'Maison' },
-      { name: 'Luigi', desc: 'Jambon cuit, mascarpone, roquette', price: '22', tag: 'Maison' },
-      { name: 'Capricciosa', desc: 'Jambon cuit, champignons, artichauts, olives, œuf miroir', price: '23' },
-      { name: 'Quattro stagioni', desc: 'Fruits de mer, jambon cuit, champignons, poivrons', price: '23' },
-      { name: 'La Contadina', desc: 'Salami Napoli, ricotta, champignons', price: '23' },
-      { name: "O' Ninn", desc: 'Jambon cuit, champignons, lard fumé, olives', price: '23' },
-      { name: 'Vegetariana', desc: 'Aubergines, courgettes, poivrons, champignons, artichauts', price: '23' },
-      { name: 'Giulia', desc: 'Fromage de chèvre, lard fumé', price: '23' },
-      { name: 'Capri', desc: 'Thon, câpres, poivrons, anchois, olives', price: '23' },
-      { name: 'Calzone Napoletano', desc: 'Pizza farcie : ricotta, fior di latte, jambon cuit, salami', price: '24' },
-      { name: 'Maria', desc: 'Jambon cru, roquette, grana padano', price: '24' },
-      { name: 'Alessia', desc: 'Friarielli, aubergines, courgettes, poivrons', price: '24' },
-      { name: 'Martina', desc: 'Saucisses de porc, poivrons', price: '24' },
-      { name: 'Costiera', desc: 'Fruits de mer, gambas, ail, origan', price: '24' },
-      { name: 'Stella di mare', desc: 'Crevettes, gambas, ail, origan', price: '25' },
-      { name: 'Regina', desc: 'Bufala, tomates cerise', price: '25' }
+      { name: 'Marinara', desc: 'Sauce tomate, ail, origan', price: '14.50' },
+      { name: 'Margherita', desc: 'Sauce tomate, fior di latte', price: '16.50' },
+      { name: 'Venezia', desc: 'Sauce tomate, fior di latte, jambon cuit', price: '18.00' },
+      { name: 'Mario Bross', desc: 'Sauce tomate, fior di latte, champignons, olives', price: '18.00' },
+      { name: 'Salame', desc: 'Sauce tomate, fior di latte, salami Napoli', price: '18.00' },
+      { name: 'Sophia Loren', desc: 'Sauce tomate, fior di latte, jambon cuit, champignons', price: '19.50' },
+      { name: 'Calabrese', desc: 'Sauce tomate, fior di latte, salami piquant, olives', price: '19.50' },
+      { name: 'Hawaï', desc: 'Sauce tomate, fior di latte, jambon cuit, ananas', price: '19.50' },
+      { name: 'Tonno', desc: 'Sauce tomate, fior di latte, thon, oignons', price: '19.50' },
+      { name: 'Partenopea', desc: 'Sauce tomate, fior di latte, anchois, câpres, ail, origan', price: '22.00' },
+      { name: 'La Formaggi', desc: 'Fior di latte, grana padano, taleggio, gorgonzola, mascarpone — sans tomate', price: '22.00' },
+      { name: 'Carbonara', desc: 'Fior di latte, guanciale, œuf — sans tomate', price: '22.00' },
+      { name: 'Luigi', desc: 'Sauce tomate, fior di latte, jambon cuit, mascarpone, roquette', price: '22.00', tag: 'Maison' },
+      { name: 'Massimo', desc: 'Sauce tomate, fior di latte, jambon cru, mascarpone', price: '22.00', tag: 'Maison' },
+      { name: "O' Ninn", desc: 'Sauce tomate, fior di latte, jambon cuit, champignons, lard fumé, olives', price: '23.00' },
+      { name: 'Vegetariana', desc: 'Sauce tomate, fior di latte, aubergines, courgettes, poivrons, champignons, artichauts', price: '23.00' },
+      { name: 'Capricciosa', desc: 'Sauce tomate, fior di latte, jambon cuit, champignons, artichauts, olives, œuf', price: '23.00' },
+      { name: 'Maria', desc: 'Sauce tomate, fior di latte, roquette, jambon cru, grana padano', price: '24.00' },
+      { name: 'Costiera', desc: 'Sauce tomate, fior di latte, fruits de mer, gambas, ail, origan', price: '24.00' },
+      { name: 'Calzone Napoletano', desc: 'Pizza farcie : ricotta, sauce tomate, fior di latte, jambon cuit, salame', price: '24.00' },
+      { name: 'Pizza Fritta', desc: 'Pizza frite farcie : ricotta, sauce tomate, fior di latte, jambon cuit, salame', price: '24.00' },
+      { name: 'Regina', desc: 'Sauce tomate, fior di latte, bufala, tomates cerises', price: '25.00' }
     ]
   },
   {
-    id: 'blanches',
-    label: 'Pizzas blanches',
-    intro: 'Fior di latte et basilic frais, sans sauce tomate.',
+    id: 'speciales',
+    label: 'Pizzas spéciales',
+    intro: 'Les créations de Luigi. L’amore per Napoli in ogni pizza.',
     items: [
-      { name: 'Quattro formaggi', desc: 'Grana padano, taleggio, gorgonzola', price: '21' },
-      { name: 'Carbonara', desc: 'Lard fumé, œuf miroir', price: '22' },
-      { name: 'Linda', desc: 'Fromage de chèvre, lard fumé, champignons', price: '24' },
-      { name: 'Norvégienne', desc: 'Saumon, oignons, câpres', price: '24' }
+      { name: 'Bulle', desc: 'Fior di latte, Vacherin, Gruyère râpé, lard fumé — sans tomate', price: '26.00' },
+      { name: 'Sorpresa', desc: 'Sauce tomate, fior di latte, aubergines, ’nduja, mascarpone, grana padano', price: '26.00' },
+      { name: 'Bella Napoli', desc: 'Fior di latte, saucisse de porc, friarielli (cime di rapa) — sans tomate', price: '27.00', tag: 'Signature' },
+      { name: 'Gabrielino', desc: 'Base ricotta, fior di latte, ’nduja, lard fumé, oignons caramélisés', price: '27.00' },
+      { name: 'Maradona', desc: 'Sauce tomate, fior di latte, pesto, burrata, tomates cerises', price: '28.00' },
+      { name: 'La mano di Dio', desc: 'Sauce tomate, fior di latte, saucisse de porc, aubergines, bufala', price: '28.00' },
+      { name: 'King', desc: 'Crème à la truffe, fior di latte, saucisse de porc, burrata, tomates cerises — sans tomate', price: '28.50' },
+      { name: 'Mamma mia', desc: 'Sauce tomate, fior di latte, carpaccio de bœuf, roquette, grana padano, huile à la truffe', price: '28.50' },
+      { name: 'Antonella', desc: 'Crème de pistache, fior di latte, mortadella, burrata, pistache concassée — sans tomate', price: '28.50', tag: 'Coup de cœur' },
+      { name: 'Joyce', desc: 'Sauce tomate, fior di latte, carpaccio de bœuf, burrata, pesto, grana padano', price: '29.00' },
+      { name: 'Serenata napoletana', desc: 'Base pesto, fior di latte, jambon cru, tomates cerises, bufala', price: '29.00' }
     ]
   },
   {
-    id: 'gourmets',
-    label: 'Gourmets',
-    intro: 'Les créations de Luigi. La carte évolue au fil des saisons.',
+    id: 'propositions',
+    label: 'Nos propositions',
+    intro: 'Les assiettes de la maison, à côté des pizzas.',
     items: [
-      { name: 'Bulle', desc: 'Fior di latte, Vacherin, Gruyère râpé, lard fumé', price: '26' },
-      { name: 'Sorpresa', desc: 'Tomate, fior di latte, aubergines, nduja, mascarpone, grana padano', price: '26' },
-      { name: 'Bella Napoli', desc: 'Saucisses de porc, friarielli, crème de burrata — sans tomate', price: '27', tag: 'Signature' },
-      { name: 'La mano di Dio', desc: 'Tomate, fior di latte, saucisses de porc, aubergines, bufala', price: '28' },
-      { name: 'Maradona', desc: 'Tomate, fior di latte, pesto, crème de burrata, tomates cerise', price: '28' },
-      { name: 'King', desc: 'Crème de truffe, fior di latte, saucisses de porc, burrata, tomates cerise', price: '28.50' },
-      { name: 'Mamma mia', desc: 'Tomate, fior di latte, carpaccio de bœuf, roquette, grana, huile de truffe', price: '28.50' },
-      { name: 'Antonella', desc: 'Crème de pistache, fior di latte, mortadella, burrata, pistache', price: '28.50', tag: 'Coup de cœur' },
-      { name: 'Joyce', desc: 'Carpaccio de bœuf, burrata, pesto, grana padano', price: '29' },
-      { name: 'Pizza fritta', desc: 'Pizza frite farcie : tomate, ricotta, fior di latte, jambon cuit, salami', price: '24' }
+      { name: 'Carpaccio de bœuf', desc: 'Roquette, tomates cerises, grana padano, huile aromatisée à la truffe, frites', price: '24.00' },
+      { name: 'Lasagne maison', price: '25.00' },
+      { name: 'Sapori di Napoli', desc: 'Beignets de pâte à pizza frits, roquette, jambon cru, tomates cerises, olives, bufala ou burrata au choix', price: '26.00' },
+      { name: 'Tartare de bœuf 200 g', desc: 'Frites, beurre, toast · supplément cognac +2 CHF', price: '31.00' }
+    ]
+  },
+  {
+    id: 'pates',
+    label: 'Pâtes',
+    intro: 'Pâtes marquées * également disponibles sans gluten.',
+    items: [
+      { name: 'Penne ou spaghetti', desc: 'Sauce tomate ou pesto *', price: '18.00' },
+      { name: 'Penne arrabbiata', desc: 'Sauce tomate, piment *', price: '20.00' },
+      { name: 'Gnocchi sorrentina', desc: 'Sauce tomate, mozzarella, basilic', price: '24.00' },
+      { name: 'Gnocchi quattro formaggi', desc: 'Grana padano, taleggio, gorgonzola, crème', price: '25.00' },
+      { name: 'Tagliatelles au saumon', desc: 'Crème, oignons, saumon fumé', price: '25.00' },
+      { name: 'Penne ou spaghetti bolognaise', desc: 'Sauce bolognaise *', price: '26.00' },
+      { name: 'Spaghetti carbonara italiana', desc: 'Guanciale, œuf, pecorino romano *', price: '26.00' },
+      { name: 'Penne amatriciana', desc: 'Sauce tomate, guanciale *', price: '26.00' },
+      { name: 'Paccheri allo scoglio', desc: 'Mélange de fruits de mer, tomates cerises, gambas', price: '28.00' },
+      { name: 'Tagliatelle mare e monti', desc: 'Crème, gambas, morilles', price: '28.00' }
     ]
   },
   {
@@ -68,58 +80,25 @@ window.MENU = [
     label: 'Entrées',
     intro: 'À partager, ou pour commencer.',
     items: [
-      { name: 'Bruschetta', desc: 'Tomate, ail, huile d’olive, origan, basilic — la pièce', price: '3' },
-      { name: 'Bruschetta aux fruits de mer', desc: 'La pièce', price: '4' },
-      { name: 'Portion de frites', price: '7' },
-      { name: 'Salade verte', price: '7' },
-      { name: 'Salade mêlée', price: '9' },
-      { name: 'Focaccia', desc: 'Huile d’olive, origan, grana padano', price: '11' },
-      { name: 'Focaccia marinara', desc: 'Sauce tomate, ail, origan', price: '11' },
-      { name: 'Focaccia crudo', desc: 'Huile d’olive, origan, grana padano, jambon cru', price: '14' },
-      { name: 'Caprese', desc: 'Tomates cerise, mozzarella di bufala, basilic', price: '14' },
-      { name: 'Montanara classica', desc: '3 mini pizzas frites, sauce tomate, grana padano, basilic', price: '16' },
-      { name: 'Tris di montanare', desc: 'Tomate & grana · mortadella & pistache · pesto & bufala', price: '17' },
-      { name: 'Plateau de charcuterie', desc: 'Charcuteries et fromages — petit / grand', price: '20 / 28' }
-    ]
-  },
-  {
-    id: 'propositions',
-    label: 'Suggestions',
-    intro: 'À l’affiche en ce moment.',
-    items: [
-      { name: 'Tartare de bœuf 200 g', desc: 'Frites, beurre, toast · supplément cognac 2 CHF', price: '31' },
-      { name: 'Carpaccio de bœuf', desc: 'Roquette, tomates cerise, grana padano, huile à la truffe, frites', price: '26.50' },
-      { name: 'Sapori di Napoli', desc: 'Jambon cru, roquette, bufala ou burrata, tomates cerise, beignets de pâte', price: '25' },
-      { name: 'Lasagne maison', price: '25' }
-    ]
-  },
-  {
-    id: 'pates',
-    label: 'Pâtes',
-    intro: 'Pâtes sans gluten disponibles sur demande (*).',
-    items: [
-      { name: 'Penne ou spaghetti', desc: 'Sauce tomate ou pesto *', price: '18' },
-      { name: 'Penne arrabbiata', desc: 'Sauce tomate, piment *', price: '20' },
-      { name: 'Gnocchi alla sorrentina', desc: 'Sauce tomate, mozzarella, basilic', price: '24' },
-      { name: 'Gnocchi quattro formaggi', desc: 'Grana padano, taleggio, gorgonzola, crème', price: '25' },
-      { name: 'Tagliatelles au saumon', desc: 'Crème, oignons, tomates cerise, saumon fumé', price: '25' },
-      { name: 'Ravioli aux crustacés', price: '25' },
-      { name: 'Ravioli aubergines & scamorza', price: '25' },
-      { name: 'Penne ou spaghetti bolognese', desc: 'Sauce bolognaise maison *', price: '26' },
-      { name: 'Spaghetti carbonara', desc: 'Guanciale, œuf, grana padano *', price: '26' },
-      { name: 'Penne amatriciana', desc: 'Sauce tomate, guanciale *', price: '26' },
-      { name: 'Spaghetti aux fruits de mer', desc: 'Fruits de mer, tomates cerise, ail *', price: '28' }
+      { name: 'Bruschetta (1 pièce)', desc: 'Tomate, ail, huile d’olive, origan, basilic', price: '2.50' },
+      { name: 'Portion de frites', price: '7.00' },
+      { name: 'Salade verte', price: '7.00' },
+      { name: 'Salade mêlée', price: '9.00' },
+      { name: 'Focaccia', desc: 'Huile d’olive, origan, grana padano · jambon cru +3 CHF', price: '11.00' },
+      { name: 'Caprese', desc: 'Tomate, basilic, mozzarella di bufala ou burrata au choix', price: '12.00' },
+      { name: 'Poker de montanare — Classique', desc: '4 montanarie à la sauce tomate, grana padano et basilic', price: '13.00' },
+      { name: 'Poker de montanare — Misto', desc: '4 montanarie à la burrata : mortadella & pistache · jambon cru, pesto & grana · bacon & oignon caramélisé · ’nduja', price: '17.00', tag: 'À partager' }
     ]
   },
   {
     id: 'enfants',
-    label: 'Enfants',
+    label: 'Menu enfant',
     intro: 'Pour les petits pizzaioli.',
     items: [
-      { name: 'Pizza Bugs Bunny', desc: 'En forme de lapin, jambon cuit', price: '13' },
-      { name: 'Pizza Cuore', desc: 'En forme de cœur', price: '13' },
-      { name: 'Chicken nuggets', desc: 'Avec frites', price: '13' },
-      { name: 'Penne ou spaghetti', desc: 'Sauce tomate ou pesto', price: '13' }
+      { name: 'Chicken nuggets', desc: 'Avec frites', price: '13.00' },
+      { name: 'Pizza Bugs Bunny', desc: 'En forme de lapin, jambon cuit', price: '13.00' },
+      { name: 'Pizza Cœur', desc: 'En forme de cœur', price: '13.00' },
+      { name: 'Penne ou spaghetti 80 g', desc: 'Sauce tomate ou pesto', price: '13.00' }
     ]
   }
 ];

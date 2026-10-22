@@ -1,57 +1,103 @@
 /* ==========================================================================
-   Bella Napoli da Luigi — Interactions
+   Bella Napoli da Luigi — V2 « Méditerranée » — Interactions
    ========================================================================== */
 (function () {
   'use strict';
 
-  var doc = document.documentElement;
   var body = document.body;
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var isDesktop = function () { return window.innerWidth >= 768; };
   var $ = function (s, ctx) { return (ctx || document).querySelector(s); };
   var $$ = function (s, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(s)); };
+  var lerp = function (a, b, t) { return a + (b - a) * t; };
+  var clamp = function (v, min, max) { return Math.min(max, Math.max(min, v)); };
   var lenis = null;
+
+  /* ---------- Découpe en lettres ---------- */
+  function splitChars(el, baseDelay, step, wrap) {
+    var text = el.textContent;
+    el.textContent = '';
+    el.setAttribute('aria-hidden', 'true');
+    Array.prototype.forEach.call(text, function (ch, i) {
+      var c = document.createElement('span');
+      c.className = 'char';
+      c.textContent = ch === ' ' ? ' ' : ch;
+      c.style.transitionDelay = (baseDelay + i * step).toFixed(2) + 's';
+      if (wrap) {
+        var w = document.createElement('span');
+        w.className = 'split-wrap';
+        w.appendChild(c);
+        el.appendChild(w);
+      } else {
+        el.appendChild(c);
+      }
+    });
+  }
+  $$('.split').forEach(function (el) {
+    splitChars(el, 1 + parseFloat(el.dataset.delay || 0), 0.05, true);
+  });
+  var wordmark = $('.split-scroll');
+  if (wordmark) splitChars(wordmark, 0, 0, false);
+
+  /* ---------- Découpe en mots (texte d'intro) ---------- */
+  $$('[data-words]').forEach(function (block) {
+    var i = 0;
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            var w = document.createElement('span');
+            w.className = 'w';
+            w.style.setProperty('--i', i++);
+            w.textContent = part;
+            frag.appendChild(w);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          walk(child);
+        }
+      });
+    })(block);
+  });
 
   /* ---------- Intro ---------- */
   body.classList.add('is-loading');
-  var start = performance.now();
+  var t0 = performance.now();
+  var introDone = false;
   function finishIntro() {
-    var wait = Math.max(0, 1500 - (performance.now() - start));
+    if (introDone) return;
+    introDone = true;
     setTimeout(function () {
       body.classList.remove('is-loading');
       body.classList.add('is-loaded');
-    }, reduceMotion ? 0 : wait);
+    }, reduceMotion ? 0 : Math.max(0, 1300 - (performance.now() - t0)));
   }
   if (document.readyState === 'complete') finishIntro();
-  else {
-    window.addEventListener('load', finishIntro, { once: true });
-    setTimeout(finishIntro, 2800); // ne pas attendre les images lentes
-  }
+  else { window.addEventListener('load', finishIntro, { once: true }); setTimeout(finishIntro, 2600); }
 
-  /* ---------- Smooth scroll (Lenis, chargé si disponible) ---------- */
-  function initLenis() {
+  /* ---------- Smooth scroll ---------- */
+  var ls = document.createElement('script');
+  ls.src = 'https://unpkg.com/lenis@1/dist/lenis.min.js';
+  ls.async = true;
+  ls.onload = function () {
     if (reduceMotion || !window.Lenis) return;
-    lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+    lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true });
     lenis.on('scroll', requestTick);
     (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
-  }
-  var lenisScript = document.createElement('script');
-  lenisScript.src = 'https://unpkg.com/lenis@1/dist/lenis.min.js';
-  lenisScript.async = true;
-  lenisScript.onload = initLenis;
-  document.head.appendChild(lenisScript);
+  };
+  document.head.appendChild(ls);
 
-  /* ---------- Liens d'ancre ---------- */
-  $$('a[href^="#"]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      var id = link.getAttribute('href');
-      if (id.length < 2) return;
-      var target = $(id);
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href');
+      var target = id.length > 1 && $(id);
       if (!target) return;
       e.preventDefault();
       closeMenu();
-      if (lenis) lenis.scrollTo(target, { offset: id === '#top' ? 0 : -20, duration: 1.4 });
+      if (lenis) lenis.scrollTo(target, { offset: 0, duration: 1.5 });
       else target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   });
@@ -60,12 +106,9 @@
   var nav = $('.navbar_component');
   var burger = $('.navbar_burger');
   var overlay = $('.menu-overlay');
-  var lastY = 0;
-
   function openMenu() {
     body.classList.add('is-menu-open');
     burger.setAttribute('aria-expanded', 'true');
-    burger.setAttribute('aria-label', 'Fermer le menu');
     overlay.setAttribute('aria-hidden', 'false');
     if (lenis) lenis.stop();
   }
@@ -73,330 +116,311 @@
     if (!body.classList.contains('is-menu-open')) return;
     body.classList.remove('is-menu-open');
     burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'Ouvrir le menu');
     overlay.setAttribute('aria-hidden', 'true');
     if (lenis) lenis.start();
   }
-  burger.addEventListener('click', function () {
-    body.classList.contains('is-menu-open') ? closeMenu() : openMenu();
-  });
+  burger.addEventListener('click', function () { body.classList.contains('is-menu-open') ? closeMenu() : openMenu(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
-  /* ---------- Révélations au scroll ---------- */
-  var revealTargets = $$('.reveal, .split-reveal, .clip-reveal, .eyebrow, .story_signature');
+  /* ---------- Révélations ---------- */
   var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      var el = entry.target;
-      el.classList.add('is-in');
-      setTimeout(function () { el.classList.add('is-done'); }, 1600);
-      io.unobserve(el);
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('is-in');
+      io.unobserve(en.target);
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
-  revealTargets.forEach(function (el) { io.observe(el); });
+  }, { threshold: 0.2, rootMargin: '0px 0px -6% 0px' });
+  $$('.reveal, [data-words]').forEach(function (el) { io.observe(el); });
 
-  /* ---------- Compteur 48h ---------- */
+  /* ---------- Compteurs ---------- */
   $$('[data-count]').forEach(function (el) {
-    var target = parseInt(el.getAttribute('data-count'), 10);
-    var counterIo = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      counterIo.disconnect();
-      var t0 = performance.now(), duration = reduceMotion ? 1 : 2200;
+    var target = parseInt(el.dataset.count, 10);
+    var cio = new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting) return;
+      cio.disconnect();
+      var s = performance.now(), d = reduceMotion ? 1 : 2000;
       (function step(now) {
-        var p = Math.min(1, (now - t0) / duration);
-        var eased = 1 - Math.pow(1 - p, 4);
-        el.textContent = Math.round(eased * target);
+        var p = Math.min(1, (now - s) / d);
+        el.textContent = Math.round((1 - Math.pow(1 - p, 4)) * target);
         if (p < 1) requestAnimationFrame(step);
-      })(t0);
+      })(s);
     }, { threshold: 0.6 });
-    counterIo.observe(el);
+    cio.observe(el);
   });
 
-  /* ---------- Texte qui se remplit mot à mot ---------- */
-  var fillBlocks = $$('[data-fill]');
-  fillBlocks.forEach(function (block) {
-    // Découpe chaque nœud texte en <span class="word"> en gardant les <em>
-    (function split(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
-        if (child.nodeType === 3) {
-          var frag = document.createDocumentFragment();
-          child.textContent.split(/(\s+)/).forEach(function (part) {
-            if (!part) return;
-            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-            var span = document.createElement('span');
-            span.className = 'word';
-            span.textContent = part;
-            frag.appendChild(span);
-          });
-          node.replaceChild(frag, child);
-        } else if (child.nodeType === 1) {
-          split(child);
-        }
-      });
-    })(block);
-    block._words = $$('.word', block);
+  /* ---------- Les 3 gestes (accordéon) ---------- */
+  var gestures = $$('.gesture');
+  function activateGesture(g) {
+    gestures.forEach(function (x) { x.classList.toggle('is-active', x === g); });
+  }
+  gestures.forEach(function (g) {
+    if (finePointer) g.addEventListener('mouseenter', function () { activateGesture(g); });
+    g.addEventListener('click', function () { activateGesture(g); });
+    g.addEventListener('focus', function () { activateGesture(g); });
   });
 
-  /* ---------- Carte (onglets) ---------- */
-  var menuData = window.MENU || [];
-  var tabsEl = $('.menu_tabs');
-  var listEl = $('.menu_list');
-  var introEl = $('.menu_panel-intro');
-  var panelEl = $('.menu_panel');
 
-  var moreEl = $('.menu_more');
-  var MENU_LIMIT = 12;
-
-  function renderCategory(cat) {
-    introEl.textContent = cat.intro || '';
-    listEl.innerHTML = '';
-    panelEl.classList.remove('is-expanded');
-    var extra = cat.items.length - MENU_LIMIT;
-    moreEl.hidden = extra <= 0;
-    if (extra > 0) $('.menu_more-label', moreEl).textContent = 'Voir les ' + extra + ' autres';
-    cat.items.forEach(function (item, i) {
-      var row = document.createElement('div');
-      row.className = 'menu_item' + (i >= MENU_LIMIT ? ' is-extra' : '');
-      row.style.setProperty('--i', i >= MENU_LIMIT ? i - MENU_LIMIT : i);
-      var tag = item.tag ? '<span class="menu_item-tag">' + item.tag + '</span>' : '';
-      var price = item.price.indexOf('/') > -1 ? item.price.replace(' / ', ' – ') : item.price;
-      row.innerHTML =
-        '<div class="menu_item-row">' +
-          '<span class="menu_item-name">' + item.name + tag + '</span>' +
-          '<span class="menu_item-leader"></span>' +
-          '<span class="menu_item-price">' + price + ' CHF</span>' +
-        '</div>' +
-        (item.desc ? '<p class="menu_item-desc">' + item.desc + '</p>' : '');
-      listEl.appendChild(row);
-    });
-  }
-
-  function selectTab(index, animate) {
-    $$('.menu_tab', tabsEl).forEach(function (tab, i) {
-      tab.setAttribute('aria-selected', i === index ? 'true' : 'false');
-      tab.tabIndex = i === index ? 0 : -1;
-    });
-    if (!animate) { renderCategory(menuData[index]); return; }
-    panelEl.classList.add('is-switching');
-    setTimeout(function () {
-      renderCategory(menuData[index]);
-      panelEl.classList.remove('is-switching');
-      if (lenis) lenis.resize();
-      updateLayout();
-    }, 300);
-  }
-
-  if (tabsEl && menuData.length) {
-    menuData.forEach(function (cat, i) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'menu_tab';
-      btn.setAttribute('role', 'tab');
-      btn.innerHTML = cat.label + '<span class="menu_tab-count">' + cat.items.length + '</span>';
-      btn.addEventListener('click', function () {
-        if (btn.getAttribute('aria-selected') === 'true') return;
-        selectTab(i, true);
-      });
-      tabsEl.appendChild(btn);
-    });
-    selectTab(0, false);
-    $('button', moreEl).addEventListener('click', function () {
-      panelEl.classList.add('is-expanded');
-      moreEl.hidden = true;
-      if (lenis) lenis.resize();
-      updateLayout();
-    });
-  }
-
-  /* ---------- Statut ouvert / fermé (heure de Bulle) ---------- */
-  (function status() {
-    var el = $('.status');
-    if (!el) return;
-    var label = $('.status_label', el);
-    var slots = [[690, 840], [1110, 1320]]; // 11h30–14h00 · 18h30–22h00
-    var days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
-    var fmt = function (m) { return Math.floor(m / 60) + 'h' + String(m % 60).padStart(2, '0'); };
-    var now;
-    try { now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Zurich' })); } catch (e) { now = new Date(); }
-    var day = now.getDay(), min = now.getHours() * 60 + now.getMinutes();
-    var openDay = function (d) { return d >= 2 && d <= 6; };
-
-    if (openDay(day)) {
-      for (var i = 0; i < slots.length; i++) {
-        if (min >= slots[i][0] && min < slots[i][1]) {
-          label.textContent = 'Ouvert · jusqu’à ' + fmt(slots[i][1]);
-          return;
-        }
-        if (min < slots[i][0]) {
-          el.classList.add('is-closed');
-          label.textContent = 'Fermé · ouvre à ' + fmt(slots[i][0]);
-          return;
-        }
-      }
+  /* ---------- Savoir-faire : points de pagination (mobile) ---------- */
+  (function () {
+    var wrap = $('.gestures');
+    if (!wrap) return;
+    var dots = document.createElement('div');
+    dots.className = 'gestures-dots';
+    dots.setAttribute('aria-hidden', 'true');
+    gestures.forEach(function () { dots.appendChild(document.createElement('span')); });
+    wrap.parentNode.insertBefore(dots, wrap.nextSibling);
+    function update() {
+      var w = wrap.clientWidth, i = Math.round(wrap.scrollLeft / (w * 0.82 + 12));
+      $$('span', dots).forEach(function (d, k) { d.classList.toggle('is-active', k === Math.min(i, gestures.length - 1)); });
     }
-    var next = (day + 1) % 7, guard = 0;
-    while (!openDay(next) && guard++ < 7) next = (next + 1) % 7;
-    el.classList.add('is-closed');
-    label.textContent = 'Fermé · ouvre ' + (next === (day + 1) % 7 ? 'demain' : days[next]) + ' à 11h30';
+    wrap.addEventListener('scroll', update, { passive: true });
+    update();
   })();
 
-  /* ---------- Formulaire de réservation (maquette) ---------- */
-  (function booking() {
-    var form = $('.booking_form');
-    if (!form) return;
-    var date = $('#date', form);
+  /* ---------- Signatures : image qui suit le curseur ---------- */
+  var hover = $('.hover-image');
+  var hoverImg = hover && $('img', hover);
+  if (hover && finePointer && !reduceMotion) {
+    var mx = -999, my = -999, hx = -999, hy = -999, lastX = 0;
+    $$('.sig-row').forEach(function (row) {
+      row.addEventListener('mouseenter', function (e) {
+        hoverImg.onerror = row.dataset.fallback ? function () { hoverImg.onerror = null; hoverImg.src = row.dataset.fallback; } : null;
+        if (hoverImg.getAttribute('src') !== row.dataset.img) hoverImg.src = row.dataset.img;
+        if (hx < -900) { hx = e.clientX; hy = e.clientY; }
+        hover.classList.add('is-visible');
+      });
+      row.addEventListener('mouseleave', function () { hover.classList.remove('is-visible'); });
+    });
+    window.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      hx = lerp(hx, mx, 0.14);
+      hy = lerp(hy, my, 0.14);
+      var vx = clamp((hx - lastX) * 0.6, -14, 14);
+      lastX = hx;
+      hover.style.setProperty('--hx', hx.toFixed(1) + 'px');
+      hover.style.setProperty('--hy', hy.toFixed(1) + 'px');
+      hover.style.setProperty('--hr', vx.toFixed(1) + 'deg');
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---------- Carte (catégories) ---------- */
+  var menu = window.MENU || [];
+  var navList = $('.menu_nav-list');
+  var panel = $('.menu_panel');
+  var titleEl = $('.menu_panel-title');
+  var introEl = $('.menu_panel-intro');
+  var listEl = $('.menu_list');
+  var moreBtn = $('.menu_more');
+  var LIMIT = 12;
+
+  function render(cat) {
+    titleEl.textContent = cat.label;
+    introEl.textContent = cat.intro || '';
+    listEl.innerHTML = '';
+    panel.classList.remove('is-expanded');
+    var extra = cat.items.length - LIMIT;
+    moreBtn.hidden = extra <= 0;
+    if (extra > 0) $('.menu_more-label', moreBtn).textContent = 'Voir les ' + extra + ' autres';
+    cat.items.forEach(function (item, i) {
+      var el = document.createElement('div');
+      el.className = 'menu_item' + (i >= LIMIT ? ' is-extra' : '');
+      el.style.setProperty('--i', i >= LIMIT ? i - LIMIT : i);
+      el.innerHTML =
+        '<div class="menu_item-row"><span class="menu_item-name">' + item.name +
+        (item.tag ? '<span class="menu_item-tag">' + item.tag + '</span>' : '') +
+        '</span><span class="menu_item-price">' + item.price.replace(' / ', ' – ') + ' CHF</span></div>' +
+        (item.desc ? '<p class="menu_item-desc">' + item.desc + '</p>' : '');
+      listEl.appendChild(el);
+    });
+  }
+  function select(index, animate) {
+    $$('.menu_tab', navList).forEach(function (t, i) {
+      t.setAttribute('aria-selected', i === index ? 'true' : 'false');
+      t.tabIndex = i === index ? 0 : -1;
+    });
+    if (!animate) { render(menu[index]); return; }
+    panel.classList.add('is-switching');
+    setTimeout(function () {
+      render(menu[index]);
+      panel.classList.remove('is-switching');
+      if (lenis) lenis.resize();
+    }, 280);
+  }
+  if (navList && menu.length) {
+    menu.forEach(function (cat, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'menu_tab';
+      b.setAttribute('role', 'tab');
+      b.innerHTML = '<span>' + cat.label + '</span><span class="menu_tab-count">' + cat.items.length + '</span>';
+      b.addEventListener('click', function () { if (b.getAttribute('aria-selected') !== 'true') select(i, true); });
+      navList.appendChild(b);
+    });
+    select(0, false);
+    // Les cartes « La cuisine » ouvrent directement la bonne catégorie
+    $$('[data-cat]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var i = menu.findIndex(function (c) { return c.id === link.dataset.cat; });
+        if (i > -1) select(i, false);
+      });
+    });
+    moreBtn.addEventListener('click', function () {
+      panel.classList.add('is-expanded');
+      moreBtn.hidden = true;
+      if (lenis) lenis.resize();
+    });
+  }
+
+  /* ---------- Carte cadeau ---------- */
+  var giftcard = $('.giftcard');
+  var amountEl = $('.giftcard_amount');
+  $$('.gift_amount').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      $$('.gift_amount').forEach(function (b) { b.setAttribute('aria-checked', b === btn ? 'true' : 'false'); });
+      giftcard.classList.remove('is-flipped');
+      amountEl.classList.add('is-changing');
+      setTimeout(function () {
+        amountEl.textContent = btn.dataset.amount;
+        amountEl.classList.remove('is-changing');
+      }, 250);
+    });
+  });
+  if (giftcard) {
+    giftcard.addEventListener('click', function () { giftcard.classList.toggle('is-flipped'); });
+    if (finePointer && !reduceMotion) {
+      var zone = giftcard.parentElement;
+      zone.addEventListener('mousemove', function (e) {
+        var r = giftcard.getBoundingClientRect();
+        giftcard.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 16).toFixed(1) + 'deg');
+        giftcard.style.setProperty('--rx', (((e.clientY - r.top) / r.height - 0.5) * -16).toFixed(1) + 'deg');
+      });
+      zone.addEventListener('mouseleave', function () {
+        giftcard.style.setProperty('--ry', '0deg');
+        giftcard.style.setProperty('--rx', '0deg');
+      });
+    }
+  }
+
+  /* ---------- Réservation (maquette) ---------- */
+  var guests = $('#guests');
+  $$('.stepper_btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      guests.value = clamp((parseInt(guests.value, 10) || 1) + parseInt(b.dataset.step, 10), 1, 20);
+    });
+  });
+  var date = $('#date');
+  if (date) {
     var d = new Date();
     do { d.setDate(d.getDate() + 1); } while (d.getDay() === 0 || d.getDay() === 1);
     var iso = function (x) { return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); };
     date.value = iso(d);
     date.min = iso(new Date());
-    form.addEventListener('submit', function () {
-      var label = $('.booking_submit-label', form);
-      label.textContent = 'Demande envoyée ✓';
-      setTimeout(function () { label.textContent = 'Réserver une table'; }, 3000);
-    });
+  }
+  var form = $('.booking_form');
+  // Envoie la demande de réservation par e-mail au restaurant (client mail du visiteur)
+  form && form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var slot = $('input[name="time"]:checked', form);
+    var d = date.value ? date.value.split('-').reverse().join('/') : '';
+    var body = 'Bonjour,\n\nJe souhaite réserver une table :\n'
+      + '• Couverts : ' + guests.value + '\n'
+      + '• Date : ' + d + '\n'
+      + '• Heure : ' + (slot ? slot.value : '') + '\n\n'
+      + 'Nom : \nTéléphone : \n\nMerci !';
+    window.location.href = 'mailto:bella.napoli.bulle@gmail.com?subject='
+      + encodeURIComponent('Réservation — ' + guests.value + ' pers. le ' + d + ' à ' + (slot ? slot.value : ''))
+      + '&body=' + encodeURIComponent(body);
+    var label = $('.booking_submit', form);
+    label.textContent = 'Ouverture de votre messagerie…';
+    setTimeout(function () { label.textContent = 'Confirmer la réservation'; }, 4000);
+  });
+
+  /* ---------- Horaires : statut + jour en cours ---------- */
+  (function () {
+    var now;
+    try { now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Zurich' })); } catch (e) { now = new Date(); }
+    var day = now.getDay(), min = now.getHours() * 60 + now.getMinutes();
+    var today = $('.hours li[data-day="' + day + '"]') || (day === 1 ? $('.hours li[data-day="0"]') : null);
+    if (today) today.classList.add('is-today');
+
+    var el = $('.status'), label = el && $('.status_label', el);
+    if (!el) return;
+    var slots = [[690, 840], [1110, 1320]];
+    var days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    var fmt = function (m) { return Math.floor(m / 60) + 'h' + String(m % 60).padStart(2, '0'); };
+    var open = function (x) { return x >= 2 && x <= 6; };
+    if (open(day)) {
+      for (var i = 0; i < slots.length; i++) {
+        if (min >= slots[i][0] && min < slots[i][1]) { label.textContent = 'Ouvert maintenant · jusqu’à ' + fmt(slots[i][1]); return; }
+        if (min < slots[i][0]) { el.classList.add('is-closed'); label.textContent = 'Fermé · ouvre à ' + fmt(slots[i][0]); return; }
+      }
+    }
+    var next = (day + 1) % 7, g = 0;
+    while (!open(next) && g++ < 7) next = (next + 1) % 7;
+    el.classList.add('is-closed');
+    label.textContent = 'Fermé · ouvre ' + (next === (day + 1) % 7 ? 'demain' : days[next]) + ' à 11h30';
   })();
 
-  /* ---------- Scroll : parallaxe, remplissage, signatures, nav ---------- */
+  /* ---------- Moteur de scroll ---------- */
+  var progress = $('.progress');
   var parallaxEls = $$('.parallax[data-speed]');
-  var sigSection = $('.section_signatures');
-  var sigTrack = $('.signatures_track');
-  var sigWrap = $('.signatures_track-wrap');
-  var sigBar = $('.signatures_progress');
-  var floatingCta = $('.floating-cta');
+  var timeline = $('.timeline');
+  var steps = $$('.timeline_step');
+  var footer = $('.footer_component');
+  var wordChars = wordmark ? $$('.char', wordmark) : [];
   var hero = $('.section_hero');
   var booking = $('#reservation');
-  var sigShift = 0;
-  var ticking = false;
-
-  function updateLayout() {
-    if (!sigSection || !sigTrack) return;
-    if (isDesktop() && !reduceMotion) {
-      var wrapLeft = parseFloat(getComputedStyle(sigWrap).paddingLeft) || 0;
-      sigShift = Math.max(0, sigTrack.scrollWidth - (window.innerWidth - wrapLeft) + wrapLeft);
-      sigSection.style.height = (window.innerHeight + sigShift) + 'px';
-    } else {
-      sigShift = 0;
-      sigSection.style.height = '';
-    }
-    requestTick();
-  }
+  var cta = $('.floating-cta');
+  var lastY = 0, ticking = false;
 
   function onScroll() {
     ticking = false;
-    var y = window.scrollY;
-    var vh = window.innerHeight;
+    var y = window.scrollY, vh = window.innerHeight;
+    var max = document.documentElement.scrollHeight - vh;
 
-    // Navigation : fond + masquage au scroll descendant
-    nav.classList.toggle('is-scrolled', y > 40);
-    if (!body.classList.contains('is-menu-open')) nav.classList.toggle('is-hidden', y > lastY && y > 500);
+    progress.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
+    nav.classList.toggle('is-scrolled', y > 30);
+    body.classList.toggle('is-past-top', y > 160);
+    if (!body.classList.contains('is-menu-open')) nav.classList.toggle('is-hidden', y > lastY && y > 600);
     lastY = y;
 
-    // Parallaxe
     if (!reduceMotion) {
       parallaxEls.forEach(function (el) {
         var r = el.getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) return;
-        var offset = (r.top + r.height / 2) - vh / 2;
-        el.style.setProperty('--py', (-offset * parseFloat(el.dataset.speed)).toFixed(1) + 'px');
+        el.style.setProperty('--py', (-((r.top + r.height / 2) - vh / 2) * parseFloat(el.dataset.speed)).toFixed(1) + 'px');
       });
     }
 
-    // Texte qui se remplit
-    fillBlocks.forEach(function (block) {
-      var r = block.getBoundingClientRect();
-      var p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.3)));
-      var n = Math.round(p * block._words.length);
-      block._words.forEach(function (w, i) { w.classList.toggle('is-on', i < n || reduceMotion); });
-    });
-
-    // Signatures : défilement horizontal piloté par le scroll vertical
-    if (sigShift > 0) {
-      var top = sigSection.getBoundingClientRect().top;
-      var p2 = Math.min(1, Math.max(0, -top / sigShift));
-      sigTrack.style.setProperty('--tx', (-p2 * sigShift).toFixed(1) + 'px');
-      sigBar.style.setProperty('--p', p2.toFixed(3));
+    // Frise chronologique : remplissage + étape active
+    if (timeline) {
+      var tr = timeline.getBoundingClientRect();
+      timeline.style.setProperty('--t', clamp((vh * 0.6 - tr.top) / tr.height, 0, 1).toFixed(3));
+      steps.forEach(function (s) {
+        var r = s.getBoundingClientRect();
+        s.classList.toggle('is-active', r.top < vh * 0.65);
+      });
     }
 
-    // CTA flottant mobile
-    if (floatingCta) {
-      var heroBottom = hero.getBoundingClientRect().bottom;
-      var bookTop = booking.getBoundingClientRect().top;
-      var bookBottom = booking.getBoundingClientRect().bottom;
-      floatingCta.classList.toggle('is-visible', heroBottom < 0 && !(bookTop < vh && bookBottom > 0));
+    // Grand logo du footer : lettres qui montent une à une
+    if (wordChars.length) {
+      var fr = wordmark.getBoundingClientRect();
+      var p = clamp((vh - fr.top) / (vh * 0.6), 0, 1);
+      wordChars.forEach(function (c, i) {
+        var local = clamp(p * 1.6 - i * (0.6 / wordChars.length), 0, 1);
+        c.style.setProperty('--cy', ((1 - local) * 60).toFixed(1) + '%');
+        c.style.opacity = (0.15 + local * 0.85).toFixed(2);
+      });
+    }
+
+    if (cta) {
+      var hb = hero.getBoundingClientRect().bottom, br = booking.getBoundingClientRect();
+      cta.classList.toggle('is-visible', hb < 0 && !(br.top < vh && br.bottom > 0));
     }
   }
-
-  function requestTick() {
-    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
-  }
+  function requestTick() { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }
   window.addEventListener('scroll', requestTick, { passive: true });
-  window.addEventListener('resize', updateLayout);
-  window.addEventListener('load', updateLayout);
-
-  // Progression des signatures en mobile (défilement natif)
-  sigTrack && sigTrack.addEventListener('scroll', function () {
-    if (sigShift > 0) return;
-    var max = sigTrack.scrollWidth - sigTrack.clientWidth;
-    sigBar.style.setProperty('--p', max > 0 ? (sigTrack.scrollLeft / max).toFixed(3) : 0);
-  }, { passive: true });
-
-  updateLayout();
-
-  /* ---------- Curseur personnalisé ---------- */
-  if (finePointer && !reduceMotion) {
-    var cursor = $('.cursor');
-    var cursorLabel = $('.cursor_label');
-    var tx = -100, ty = -100, cx = -100, cy = -100;
-    window.addEventListener('mousemove', function (e) {
-      tx = e.clientX; ty = e.clientY;
-      doc.classList.add('has-cursor');
-      var labelled = e.target.closest && e.target.closest('[data-cursor]');
-      var hover = e.target.closest && e.target.closest('a, button, select, input, label, .pillar, .menu_item, .sig-card');
-      if (labelled) {
-        cursorLabel.textContent = labelled.getAttribute('data-cursor');
-        cursor.classList.add('is-label');
-        cursor.classList.remove('is-hover');
-      } else {
-        cursor.classList.remove('is-label');
-        cursor.classList.toggle('is-hover', !!hover);
-      }
-    });
-    document.addEventListener('mouseleave', function () { doc.classList.remove('has-cursor'); });
-    (function loop() {
-      cx += (tx - cx) * 0.2;
-      cy += (ty - cy) * 0.2;
-      cursor.style.setProperty('--cx', cx.toFixed(1) + 'px');
-      cursor.style.setProperty('--cy', cy.toFixed(1) + 'px');
-      requestAnimationFrame(loop);
-    })();
-
-    /* Boutons magnétiques */
-    $$('.magnetic').forEach(function (el) {
-      el.addEventListener('mousemove', function (e) {
-        var r = el.getBoundingClientRect();
-        el.style.setProperty('--mx', ((e.clientX - (r.left + r.width / 2)) * 0.3).toFixed(1) + 'px');
-        el.style.setProperty('--my', ((e.clientY - (r.top + r.height / 2)) * 0.45).toFixed(1) + 'px');
-      });
-      el.addEventListener('mouseleave', function () {
-        el.style.setProperty('--mx', '0px');
-        el.style.setProperty('--my', '0px');
-      });
-    });
-
-    /* Carte cadeau en 3D */
-    var gift = $('.gift-card');
-    var giftZone = gift && gift.parentElement;
-    if (giftZone) {
-      giftZone.addEventListener('mousemove', function (e) {
-        var r = giftZone.getBoundingClientRect();
-        gift.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 24).toFixed(1) + 'deg');
-        gift.style.setProperty('--rx', (((e.clientY - r.top) / r.height - 0.5) * -24).toFixed(1) + 'deg');
-      });
-      giftZone.addEventListener('mouseleave', function () {
-        gift.style.setProperty('--ry', '0deg');
-        gift.style.setProperty('--rx', '0deg');
-      });
-    }
-  }
+  window.addEventListener('resize', requestTick);
+  onScroll();
 })();

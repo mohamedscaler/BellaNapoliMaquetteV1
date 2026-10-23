@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 20px 16px; background: #F7F2E8; font-family: Arial, Helvetica, sans-serif; color: #0F2A47; }
+    .card { max-width: 480px; margin: auto; background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 20px 50px -30px rgba(15,42,71,.5); }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: bold; background: #E9C46A; }
+    .badge.ok { background: #cfe8d5; } .badge.no { background: #f3cccc; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 17px; }
+    td { padding: 8px 0; border-bottom: 1px solid #eee; } td:last-child { text-align: right; font-weight: bold; }
+    .msg { background: #F7F2E8; padding: 12px; border-radius: 12px; }
+    a { color: #1E4E8C; }
+    textarea { width: 100%; min-height: 70px; margin-top: 8px; padding: 10px; border: 1px solid #ddd; border-radius: 12px; font: inherit; font-size: 16px; }
+    .btn { display: block; width: 100%; padding: 18px; margin-top: 12px; border: 0; border-radius: 999px; font-size: 18px; font-weight: bold; color: #fff; cursor: pointer; }
+    .accept { background: #2e7d4f; } .refuse { background: #b23b3b; }
+    .btn:disabled { opacity: .5; }
+    .hidden { display: none; }
+    .small { font-size: 14px; color: #5b6b7d; }
+  </style>
+</head>
+<body>
+  <div class="card">
+  <? if (!data) { ?>
+    <h1>Réservation introuvable</h1>
+    <p class="small">Le lien est incomplet ou la réservation a été supprimée du tableau.</p>
+  <? } else { ?>
+    <h1><?= data.name ?></h1>
+    <span id="badge" class="badge <?= data.status === 'Confirmée' ? 'ok' : data.status === 'Refusée' ? 'no' : '' ?>"><?= data.status ?></span>
+    <table>
+      <tr><td>Date</td><td><?= data.date.split('-').reverse().join('/') ?></td></tr>
+      <tr><td>Heure</td><td><?= data.time ?></td></tr>
+      <tr><td>Couverts</td><td><?= data.guests ?></td></tr>
+      <tr><td>Téléphone</td><td><a href="tel:<?= data.phone ?>"><?= data.phone ?></a></td></tr>
+    </table>
+    <? if (data.message) { ?><p class="msg">💬 <?= data.message ?></p><? } ?>
+
+    <div id="actions" class="<?= data.status === 'En attente' ? '' : 'hidden' ?>">
+      <button class="btn accept" onclick="go('accept')">✅ Accepter</button>
+      <details style="margin-top:12px">
+        <summary class="small">Refuser (ajouter un mot facultatif)</summary>
+        <textarea id="note" placeholder="Ex. : complet ce soir-là, mais nous avons de la place à 21h00."></textarea>
+        <button class="btn refuse" onclick="go('refuse')">❌ Refuser</button>
+      </details>
+    </div>
+    <p id="done" class="small <?= data.status === 'En attente' ? 'hidden' : '' ?>">Déjà traitée. Le client a reçu l'e-mail.</p>
+  <? } ?>
+  </div>
+
+  <script>
+    // Envoie la décision au script (met à jour le tableau + e-mail au client)
+    function go(action) {
+      document.querySelectorAll('.btn').forEach(function (b) { b.disabled = true; });
+      var note = (document.getElementById('note') || {}).value || '';
+      google.script.run
+        .withSuccessHandler(function (status) {
+          var badge = document.getElementById('badge');
+          badge.textContent = status;
+          badge.className = 'badge ' + (status === 'Confirmée' ? 'ok' : 'no');
+          document.getElementById('actions').classList.add('hidden');
+          var done = document.getElementById('done');
+          done.textContent = status === 'Confirmée' ? 'Confirmation envoyée au client ✅' : 'Réponse envoyée au client.';
+          done.classList.remove('hidden');
+        })
+        .withFailureHandler(function (err) {
+          alert('Erreur : ' + err.message);
+          document.querySelectorAll('.btn').forEach(function (b) { b.disabled = false; });
+        })
+        .decide(<?= id ?>, <?= token ?>, action, note);
+    }
+  </script>
+</body>
+</html>

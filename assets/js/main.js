@@ -317,23 +317,40 @@
     date.value = iso(d);
     date.min = iso(new Date());
   }
+  /* Envoi de la demande au script Google (Sheet + e-mail à Luigi qui accepte/refuse).
+     Coller ici l'URL du déploiement « Application Web » (se termine par /exec). */
+  var RESA_ENDPOINT = '';
   var form = $('.booking_form');
-  // Envoie la demande de réservation par e-mail au restaurant (client mail du visiteur)
   form && form.addEventListener('submit', function (e) {
     e.preventDefault();
+    var status = $('.booking_status', form), label = $('.booking_submit', form), btn = $('button[type="submit"]', form);
     var slot = $('input[name="time"]:checked', form);
-    var d = date.value ? date.value.split('-').reverse().join('/') : '';
-    var body = 'Bonjour,\n\nJe souhaite réserver une table :\n'
-      + '• Couverts : ' + guests.value + '\n'
-      + '• Date : ' + d + '\n'
-      + '• Heure : ' + (slot ? slot.value : '') + '\n\n'
-      + 'Nom : \nTéléphone : \n\nMerci !';
-    window.location.href = 'mailto:bella.napoli.bulle@gmail.com?subject='
-      + encodeURIComponent('Réservation — ' + guests.value + ' pers. le ' + d + ' à ' + (slot ? slot.value : ''))
-      + '&body=' + encodeURIComponent(body);
-    var label = $('.booking_submit', form);
-    label.textContent = 'Ouverture de votre messagerie…';
-    setTimeout(function () { label.textContent = 'Confirmer la réservation'; }, 4000);
+    var f = function (n) { return form.elements.namedItem(n).value; };
+    var data = {
+      guests: guests.value, date: date.value, time: slot ? slot.value : '',
+      name: f('name'), phone: f('phone'), email: f('email'),
+      message: f('message'), website: f('website')
+    };
+    var setStatus = function (txt, err) { status.textContent = txt; status.classList.toggle('is-error', !!err); };
+    if (!data.date || !data.time) return setStatus('Choisissez une date et une heure.', true);
+
+    btn.disabled = true;
+    label.textContent = 'Envoi en cours…';
+    // text/plain = requête « simple », pas de pré-vérification CORS côté Google
+    fetch(RESA_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.error || 'Erreur');
+        form.reset();
+        guests.value = 2;
+        setStatus('Merci ! Votre demande est envoyée. Vous recevrez la confirmation par e-mail dès que le restaurant l’aura validée.');
+        label.textContent = 'Demande envoyée ✓';
+      })
+      .catch(function () {
+        setStatus('L’envoi a échoué. Réessayez ou appelez-nous au 026 913 14 19.', true);
+        label.textContent = 'Envoyer la demande';
+        btn.disabled = false;
+      });
   });
 
   /* ---------- Horaires : statut + jour en cours ---------- */
